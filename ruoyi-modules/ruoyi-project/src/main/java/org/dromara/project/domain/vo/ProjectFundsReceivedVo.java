@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class ProjectFundsReceivedVO {
+public class ProjectFundsReceivedVo {
     /**
      * 主键
      */

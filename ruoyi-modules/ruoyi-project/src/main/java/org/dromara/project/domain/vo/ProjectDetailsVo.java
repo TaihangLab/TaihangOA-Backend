@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2023/12/14
  */
 @Data
-public class ProjectDetailsVO {
+public class ProjectDetailsVo {
 
     /**
      * 项目信息
@@ -22,7 +22,7 @@ public class ProjectDetailsVO {
     /**
      * 成员信息
      */
-    private List<ProjectUserVO> projectUserVoList;
+    private List<ProjectUserVo> projectUserVoList;
 
     /**
      * 经费信息

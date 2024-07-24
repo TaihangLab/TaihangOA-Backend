@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2024/02/06
  */
 @Data
-public class ProjectUserVO {
+public class ProjectUserVo {
 
     private static final long serialVersionUID = 1L;
 
