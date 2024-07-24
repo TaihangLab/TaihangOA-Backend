@@ -9,16 +9,12 @@
         <id property="userId" column="user_id" jdbcType="BIGINT"/>
         <id property="projectUserRole" column="project_user_role" jdbcType="VARCHAR"/>
     </resultMap>
-    <resultMap id="projectLevelCountResultMap" type="java.util.HashMap">
-        <result property="project_level" column="project_level"/>
-        <result property="count" column="count"/>
-    </resultMap>
 
     <sql id="Base_Column_List">
         project_id,user_id,project_user_role
     </sql>
     <!-- 获取历史所有项目级别和对应的数量 -->
-    <select id="getProjectLevelCountByUserId" resultMap="projectLevelCountResultMap" parameterType="Long">
+    <select id="getProjectLevelCountByUserId" resultType="map" parameterType="Long">
         SELECT pbi.project_level, COUNT(DISTINCT pbi.project_id, pu.user_id) AS count
         FROM project_base_info pbi
         INNER JOIN project_user pu ON pbi.project_id = pu.project_id
@@ -27,7 +23,7 @@
     </select>
 
     <!-- 获取当前正在进行中的项目级别和对应的数量 (&gt; > ), (&lt; < )-->
-    <select id="getNowProjectLevelCountByUserId" resultMap="projectLevelCountResultMap" parameterType="Long">
+    <select id="getNowProjectLevelCountByUserId" resultType="map" parameterType="Long">
         SELECT pbi.project_level, COUNT(DISTINCT pbi.project_id, pu.user_id) AS count
         FROM project_base_info pbi
         INNER JOIN project_user pu ON pbi.project_id = pu.project_id
