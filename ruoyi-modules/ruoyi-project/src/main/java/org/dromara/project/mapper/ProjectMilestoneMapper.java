@@ -1,6 +1,7 @@
 package org.dromara.project.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
 import org.dromara.project.domain.ProjectMilestone;
 import org.dromara.project.domain.vo.ProjectMilestoneVo;
 
