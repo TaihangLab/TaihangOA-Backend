@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.project.mapper.ProjectMilestoneMapper">
+
+    <resultMap id="ProjectMilestoneResult" type="org.dromara.project.domain.ProjectMilestone">
+        <id property="milestoneId" column="milestone_id" jdbcType="BIGINT"/>
+        <result property="projectId" column="project_id" jdbcType="BIGINT"/>
+        <result property="milestoneTitle" column="milestone_title" jdbcType="VARCHAR"/>
+        <result property="milestoneRemark" column="milestone_remark" jdbcType="VARCHAR"/>
+        <result property="milestoneDate" column="milestone_date" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        milestone_id,project_id,milestone_title,
+        milestone_remark,milestone_date
+    </sql>
+</mapper>
