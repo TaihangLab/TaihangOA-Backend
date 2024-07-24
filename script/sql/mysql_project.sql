@@ -350,8 +350,8 @@ create index project_target_project_id_index
 -- 5、项目附件表
 -- ----------------------------
 
-DROP TABLE IF EXISTS `project_attachments`;
-create table project_attachments
+DROP TABLE IF EXISTS `project_attachment`;
+create table project_attachment
 (
     id         bigint auto_increment comment '主键id'
         primary key,
@@ -360,7 +360,7 @@ create table project_attachments
 ) comment '项目附件表' charset = utf8mb4;
 
 create index project_attachments_project_id_oss_id_index
-    on project_attachments (project_id, oss_id);
+    on project_attachment (project_id, oss_id);
 
 -- ----------------------------
 -- 6、项目大事纪表
