@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.project.mapper.ProjectTargetMapper">
+
+    <resultMap id="ProjectTargetResult" type="org.dromara.project.domain.ProjectTarget">
+        <id property="targetId" column="target_id" jdbcType="BIGINT"/>
+        <result property="projectId" column="project_id" jdbcType="BIGINT"/>
+        <result property="targetName" column="target_name" jdbcType="VARCHAR"/>
+        <result property="midtermTarget" column="midterm_target" jdbcType="VARCHAR"/>
+        <result property="endTarget" column="end_target" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        target_id,project_id,target_name,
+        midterm_target,end_target
+    </sql>
+</mapper>
