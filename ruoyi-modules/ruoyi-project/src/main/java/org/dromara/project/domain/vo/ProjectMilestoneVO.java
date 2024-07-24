@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-public class ProjectMilestoneVo {
+public class ProjectMilestoneVO {
 
     /**
      * 大事纪ID
