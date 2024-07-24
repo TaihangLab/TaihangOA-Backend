@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.project.mapper.ProjectBaseInfoMapper">
+
+    <resultMap id="ProjectBaseInfoResult" type="org.dromara.project.domain.ProjectBaseInfo">
+        <id property="projectId" column="project_id" jdbcType="BIGINT"/>
+        <result property="leadingUnit" column="leading_unit" jdbcType="VARCHAR"/>
+        <result property="assignedSubjectName" column="assigned_subject_name" jdbcType="VARCHAR"/>
+        <result property="projectContact" column="project_contact" jdbcType="VARCHAR"/>
+        <result property="projectAssignmentSerialNo" column="project_assignment_serial_no" jdbcType="VARCHAR"/>
+        <result property="projectSource" column="project_source" jdbcType="VARCHAR"/>
+        <result property="projectLevel" column="project_level" jdbcType="TINYINT"/>
+        <result property="hasLeadingRole" column="has_leading_role" jdbcType="TINYINT"/>
+        <result property="assignedSubjectSection" column="assigned_subject_section" jdbcType="VARCHAR"/>
+        <result property="subjectAssignmentSerialNo" column="subject_assignment_serial_no" jdbcType="VARCHAR"/>
+        <result property="projectEstablishTime" column="project_establish_time" jdbcType="DATE"/>
+        <result property="projectScheduledCompletionTime" column="project_scheduled_completion_time" jdbcType="DATE"/>
+        <result property="projectDuration" column="project_duration" jdbcType="VARCHAR"/>
+        <result property="projectDescription" column="project_description" jdbcType="VARCHAR"/>
+        <result property="significanceAndNecessity" column="significance_and_necessity" jdbcType="VARCHAR"/>
+        <result property="projectProgressStatus" column="project_progress_status" jdbcType="TINYINT"/>
+        <result property="completionProgress" column="completion_progress" jdbcType="VARCHAR"/>
+        <result property="collaboratingUnit" column="collaborating_unit" jdbcType="VARCHAR"/>
+        <result property="expertTeam" column="expert_team" jdbcType="VARCHAR"/>
+        <result property="hasCooperativeUnit" column="has_cooperative_unit" jdbcType="TINYINT"/>
+        <result property="awardDetails" column="award_details" jdbcType="VARCHAR"/>
+        <result property="publicationDetails" column="publication_details" jdbcType="VARCHAR"/>
+        <result property="patentDetails" column="patent_details" jdbcType="VARCHAR"/>
+        <result property="softwareCopyrightDetails" column="software_copyright_details" jdbcType="VARCHAR"/>
+        <result property="standardDetails" column="standard_details" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="deleted" column="deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        project_id,leading_unit,assigned_subject_name,
+        project_contact,project_assignment_serial_no,project_source,
+        project_level,has_leading_role,assigned_subject_section,
+        subject_assignment_serial_no,project_establish_time,project_scheduled_completion_time,
+        project_duration,project_description,significance_and_necessity,
+        project_progress_status,completion_progress,collaborating_unit,
+        expert_team,has_cooperative_unit,award_details,
+        publication_details,patent_details,software_copyright_details,
+        standard_details,create_time,update_time,
+        create_by,update_by,deleted
+    </sql>
+</mapper>
