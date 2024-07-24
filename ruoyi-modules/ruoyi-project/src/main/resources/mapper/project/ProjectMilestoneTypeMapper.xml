@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.project.mapper.ProjectMilestoneTypeMapper">
+
+    <resultMap id="ProjectMilestoneTypeResult" type="org.dromara.project.domain.ProjectMilestoneType">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="milestoneId" column="milestone_id" jdbcType="BIGINT"/>
+        <result property="milestoneType" column="milestone_type" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,milestone_id,milestone_type
+    </sql>
+</mapper>
