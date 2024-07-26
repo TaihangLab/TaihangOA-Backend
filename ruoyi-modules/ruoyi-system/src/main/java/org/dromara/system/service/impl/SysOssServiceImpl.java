@@ -36,10 +36,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 文件上传 服务层实现
@@ -66,6 +64,21 @@ public class SysOssServiceImpl implements ISysOssService, OssService {
         List<SysOssVo> filterResult = StreamUtils.toList(result.getRecords(), this::matchingUrl);
         result.setRecords(filterResult);
         return TableDataInfo.build(result);
+    }
+
+    /**
+     * @param ossIdList
+     *
+     * @return
+     */
+    @Override
+    public List<SysOssVo> getSysOssVoListByOssIdList(List<Long> ossIdList) {
+        if (ossIdList == null || ossIdList.isEmpty()) {
+            return Collections.emptyList();
+        }
+        LambdaQueryWrapper<SysOss> lqw = Wrappers.lambdaQuery();
+        lqw.in(SysOss::getOssId, ossIdList);
+        return baseMapper.selectVoList(lqw).stream().map(this::matchingUrl).collect(Collectors.toList());
     }
 
     /**

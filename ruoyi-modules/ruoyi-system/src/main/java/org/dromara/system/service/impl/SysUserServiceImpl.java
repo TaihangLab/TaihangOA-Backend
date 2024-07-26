@@ -653,4 +653,21 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         return StreamUtils.toList(userRoles, SysUserRole::getUserId);
     }
 
+    /**
+     * 该方法仅用于minIO IP地址可能发生改变的情况下
+     *
+     * @param oldEndPoint 旧IP地址
+     * @param newEndPoint 新IP地址
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateUserAvatarIP(String oldEndPoint, String newEndPoint) {
+        baseMapper.updateAvatar(oldEndPoint, newEndPoint);
+    }
+
+    @Override
+    public List<SysUser> filterActiveUserIdList(List<Long> userIdList) {
+        return baseMapper.selectList(
+            new LambdaQueryWrapper<SysUser>().in(SysUser::getUserId, userIdList).eq(SysUser::getStatus, "0"));
+    }
 }

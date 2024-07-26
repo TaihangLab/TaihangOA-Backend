@@ -35,6 +35,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 部门管理 服务实现
@@ -334,4 +336,36 @@ public class SysDeptServiceImpl implements ISysDeptService, DeptService {
         return baseMapper.deleteById(deptId);
     }
 
+    /**
+     * @param deptIdList
+     *
+     * @return
+     */
+    @Override
+    public Map<Long, String> getDeptIdAndNameMapping(List<Long> deptIdList) {
+        return baseMapper.selectBatchIds(deptIdList).stream()
+            .collect(Collectors.toMap(SysDept::getDeptId, SysDept::getDeptName));
+    }
+
+    /**
+     * @param deptId
+     *
+     * @return
+     */
+    @Override
+    public List<Long> getAncestorsById(Long deptId) {
+        if (deptId == null) {
+            throw new IllegalArgumentException("deptId can not be null");
+        }
+        SysDept dept = baseMapper.selectById(deptId);
+        if (dept == null) {
+            throw new IllegalArgumentException("dept not found");
+        }
+        String ancestors = dept.getAncestors();
+        if (StringUtils.isBlank(ancestors)) {
+            return new ArrayList<>();
+        }
+        return StringUtils.splitList(ancestors, StringUtils.SEPARATOR).stream().skip(1)  // 跳过第一个元素
+            .map(Long::valueOf).collect(Collectors.toList());
+    }
 }

@@ -1,5 +1,8 @@
 package org.dromara.common.core.service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 通用 部门服务
  *
@@ -15,4 +18,7 @@ public interface DeptService {
      */
     String selectDeptNameByIds(String deptIds);
 
+    Map<Long, String> getDeptIdAndNameMapping(List<Long> deptIdList);
+
+    List<Long> getAncestorsById(Long deptId);
 }

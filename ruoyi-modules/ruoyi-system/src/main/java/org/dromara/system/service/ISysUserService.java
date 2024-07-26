@@ -2,6 +2,7 @@ package org.dromara.system.service;
 
 import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
+import org.dromara.system.domain.SysUser;
 import org.dromara.system.domain.bo.SysUserBo;
 import org.dromara.system.domain.vo.SysUserExportVo;
 import org.dromara.system.domain.vo.SysUserVo;
@@ -219,4 +220,8 @@ public interface ISysUserService {
      * @return 结果
      */
     List<SysUserVo> selectUserListByDept(Long deptId);
+
+    void updateUserAvatarIP(String oldEndPoint, String newEndPoint);
+
+    List<SysUser> filterActiveUserIdList(List<Long> userIdList);
 }

@@ -1,10 +1,10 @@
 package org.dromara.system.service;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.system.domain.bo.SysOssBo;
 import org.dromara.system.domain.vo.SysOssVo;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -27,6 +27,8 @@ public interface ISysOssService {
      * @return 结果
      */
     TableDataInfo<SysOssVo> queryPageList(SysOssBo sysOss, PageQuery pageQuery);
+
+    List<SysOssVo> getSysOssVoListByOssIdList(List<Long> ossIdList);
 
     /**
      * 根据一组 ossIds 获取对应的 SysOssVo 列表
