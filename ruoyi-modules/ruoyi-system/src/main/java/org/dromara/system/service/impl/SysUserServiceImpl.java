@@ -16,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.dromara.common.core.constant.CacheNames;
 import org.dromara.common.core.constant.UserConstants;
 import org.dromara.common.core.domain.dto.UserDTO;
+import org.dromara.common.core.enums.DiplomaTypeEnum;
+import org.dromara.common.core.enums.JobTitleEnum;
 import org.dromara.common.core.exception.ServiceException;
 import org.dromara.common.core.service.UserService;
 import org.dromara.common.core.utils.MapstructUtils;
@@ -43,6 +45,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -669,5 +672,47 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     public List<SysUser> filterActiveUserIdList(List<Long> userIdList) {
         return baseMapper.selectList(
             new LambdaQueryWrapper<SysUser>().in(SysUser::getUserId, userIdList).eq(SysUser::getStatus, "0"));
+    }
+
+    @Override
+    public TableDataInfo<SysUser> selectAllPageUserList(SysUser user, PageQuery pageQuery) {
+        SysUserBo sysUserBo = new SysUserBo();
+        BeanUtil.copyProperties(user, sysUserBo);
+        Page<SysUser> page = baseMapper.selectAllPageUserList(pageQuery.build(), this.buildQueryWrapper(sysUserBo));
+        return TableDataInfo.build(page);
+    }
+
+    /**
+     * 查询用户职称和对应的人数
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Integer> getUserJobTitleStatistics() {
+        Map<String, Integer> jobTitleToUserNumMap = new HashMap<>();
+        JobTitleEnum[] jobTitles = JobTitleEnum.values();
+        for (JobTitleEnum jobTitle : jobTitles) {
+            int size =
+                baseMapper.selectUserList(new LambdaQueryWrapper<SysUser>().eq(SysUser::getJobTitle, jobTitle)).size();
+            jobTitleToUserNumMap.put(jobTitle.getDescription(), size);
+        }
+        return jobTitleToUserNumMap;
+    }
+
+    /**
+     * 查询用户学历和对应的人数
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Integer> getUserDiplomaStatistics() {
+        Map<String, Integer> diplomaToUserNumMap = new HashMap<>();
+        DiplomaTypeEnum[] diplomaTypes = DiplomaTypeEnum.values();
+        for (DiplomaTypeEnum diplomaType : diplomaTypes) {
+            int size = baseMapper.selectUserList(new LambdaQueryWrapper<SysUser>().eq(SysUser::getDiploma, diplomaType))
+                .size();
+            diplomaToUserNumMap.put(diplomaType.getDescription(), size);
+        }
+        return diplomaToUserNumMap;
     }
 }

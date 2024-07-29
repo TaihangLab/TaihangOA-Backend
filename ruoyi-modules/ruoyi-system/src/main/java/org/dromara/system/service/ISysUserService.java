@@ -8,6 +8,7 @@ import org.dromara.system.domain.vo.SysUserExportVo;
 import org.dromara.system.domain.vo.SysUserVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户 业务层
@@ -221,7 +222,22 @@ public interface ISysUserService {
      */
     List<SysUserVo> selectUserListByDept(Long deptId);
 
-    void updateUserAvatarIP(String oldEndPoint, String newEndPoint);
 
     List<SysUser> filterActiveUserIdList(List<Long> userIdList);
+
+    TableDataInfo<SysUser> selectAllPageUserList(SysUser user, PageQuery pageQuery);
+
+    /**
+     * 获取用户职称和人数映射
+     *
+     * @return
+     */
+    Map<String, Integer> getUserJobTitleStatistics();
+
+    /**
+     * 获取用户学历和人数映射
+     *
+     * @return
+     */
+    Map<String, Integer> getUserDiplomaStatistics();
 }

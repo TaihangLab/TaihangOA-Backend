@@ -10,8 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.common.core.constant.CacheNames;
 import org.dromara.common.core.exception.ServiceException;
+import org.dromara.common.core.service.OssService;
+import org.dromara.common.core.service.UserService;
 import org.dromara.common.core.utils.MapstructUtils;
 import org.dromara.common.core.utils.StringUtils;
+import org.dromara.common.excel.utils.AddressUtil;
 import org.dromara.common.json.utils.JsonUtils;
 import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
@@ -42,6 +45,9 @@ import java.util.List;
 public class SysOssConfigServiceImpl implements ISysOssConfigService {
 
     private final SysOssConfigMapper baseMapper;
+    private final UserService userService;
+
+    private final OssService ossService;
 
     /**
      * 项目启动时，初始化参数到缓存，加载配置类
@@ -49,9 +55,26 @@ public class SysOssConfigServiceImpl implements ISysOssConfigService {
     @Override
     public void init() {
         List<SysOssConfig> list = baseMapper.selectList();
+        String IP = AddressUtil.getLocalHostExactAddress().toString().split("/")[1];
+        log.info("本机IP为{}", IP);
         // 加载OSS初始化配置
         for (SysOssConfig config : list) {
             String configKey = config.getConfigKey();
+
+            // 本地部署minio 才开启这个if
+
+            if ("minio".equals(configKey) || "image".equals(configKey)) {
+                String endpoint = config.getEndpoint().split(":")[0];
+                if (!IP.equals(endpoint)) {
+                    String newEndpoint = IP + ":9000";
+                    config.setEndpoint(newEndpoint);
+                    log.info("newEndpoint为{}", newEndpoint);
+                    ossService.updateIP(endpoint + ":9000", newEndpoint);
+                    //修改user表中avatar（头像）字段的IP
+                    userService.updateUserAvatarIP(endpoint + ":9000", newEndpoint);
+                }
+            }
+
             if ("0".equals(config.getStatus())) {
                 RedisUtils.setCacheObject(OssConstant.DEFAULT_CONFIG_KEY, configKey);
             }
@@ -151,10 +174,7 @@ public class SysOssConfigServiceImpl implements ISysOssConfigService {
         SysOssConfig info = baseMapper.selectOne(new LambdaQueryWrapper<SysOssConfig>()
             .select(SysOssConfig::getOssConfigId, SysOssConfig::getConfigKey)
             .eq(SysOssConfig::getConfigKey, sysOssConfig.getConfigKey()));
-        if (ObjectUtil.isNotNull(info) && info.getOssConfigId() != ossConfigId) {
-            return false;
-        }
-        return true;
+        return !ObjectUtil.isNotNull(info) || info.getOssConfigId() == ossConfigId;
     }
 
     /**

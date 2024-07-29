@@ -1,12 +1,14 @@
 package org.dromara.system.domain.vo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import org.dromara.common.excel.annotation.ExcelDictFormat;
-import org.dromara.common.excel.convert.ExcelDictConvert;
-import io.github.linpeilie.annotations.AutoMapper;
-import io.github.linpeilie.annotations.ReverseAutoMapping;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.dromara.common.core.enums.DiplomaTypeEnum;
+import org.dromara.common.core.enums.JobTitleEnum;
+import org.dromara.common.excel.annotation.ExcelDictFormat;
+import org.dromara.common.excel.annotation.ExcelEnumFormat;
+import org.dromara.common.excel.convert.ExcelDictConvert;
+import org.dromara.common.excel.convert.ExcelEnumConvert;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -54,6 +56,20 @@ public class SysUserExportVo implements Serializable {
      */
     @ExcelProperty(value = "手机号码")
     private String phonenumber;
+
+    /**
+     * 用户职称
+     */
+    @ExcelProperty(value = "用户职称", converter = ExcelEnumConvert.class)
+    @ExcelEnumFormat(enumClass = JobTitleEnum.class, textField = "description")
+    private JobTitleEnum jobTitle;
+
+    /**
+     * 用户学历
+     */
+    @ExcelProperty(value = "用户学历", converter = ExcelEnumConvert.class)
+    @ExcelEnumFormat(enumClass = DiplomaTypeEnum.class, textField = "description")
+    private DiplomaTypeEnum diploma;
 
     /**
      * 用户性别

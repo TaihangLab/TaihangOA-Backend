@@ -26,6 +26,7 @@ import org.dromara.common.oss.factory.OssFactory;
 import org.dromara.system.domain.SysOss;
 import org.dromara.system.domain.bo.SysOssBo;
 import org.dromara.system.domain.vo.SysOssVo;
+import org.dromara.system.mapper.SysOssConfigMapper;
 import org.dromara.system.mapper.SysOssMapper;
 import org.dromara.system.service.ISysOssService;
 import org.jetbrains.annotations.NotNull;
@@ -49,6 +50,7 @@ import java.util.stream.Collectors;
 public class SysOssServiceImpl implements ISysOssService, OssService {
 
     private final SysOssMapper baseMapper;
+    private final SysOssConfigMapper sysOssConfigMapper;
 
     /**
      * 查询OSS对象存储列表
@@ -276,5 +278,49 @@ public class SysOssServiceImpl implements ISysOssService, OssService {
             oss.setUrl(storage.getPrivateUrl(oss.getFileName(), 120));
         }
         return oss;
+    }
+
+    public void updateIP(String oldEndPoint, String newEndPoint) {
+        sysOssConfigMapper.updateEndPoint(oldEndPoint, newEndPoint);
+        baseMapper.updateUrl(oldEndPoint, newEndPoint);
+    }
+
+    /**
+     * 上传多个文件
+     *
+     * @param files 多个文件数组
+     *
+     * @return 结果
+     */
+    @Override
+    public List<SysOssVo> uploadMultipleFiles(MultipartFile[] files) {
+        List<SysOssVo> uploadedFiles = new ArrayList<>();
+
+        for (MultipartFile file : files) {
+            String originalFileName = file.getOriginalFilename();
+            String suffix = StringUtils.substring(originalFileName, originalFileName.lastIndexOf("."));
+
+            OssClient storage = OssFactory.instance();
+            UploadResult uploadResult;
+            try {
+                uploadResult = storage.uploadSuffix(file.getBytes(), suffix);
+            } catch (IOException e) {
+                throw new ServiceException("Failed to upload file: " + e.getMessage());
+            }
+
+            SysOss oss = new SysOss();
+            oss.setUrl(uploadResult.getUrl());
+            oss.setFileSuffix(suffix);
+            oss.setFileName(uploadResult.getFilename());
+            oss.setOriginalName(originalFileName);
+            oss.setService(storage.getConfigKey());
+            baseMapper.insert(oss);
+
+            SysOssVo sysOssVo = new SysOssVo();
+            BeanUtil.copyProperties(oss, sysOssVo);
+            uploadedFiles.add(matchingUrl(sysOssVo));
+        }
+
+        return uploadedFiles;
     }
 }

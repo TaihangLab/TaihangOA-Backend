@@ -66,4 +66,6 @@ public interface UserService {
      * @return 用户ids
      */
     List<Long> selectUserIdsByRoleIds(List<Long> roleIds);
+
+    void updateUserAvatarIP(String oldEndPoint, String newEndPoint);
 }

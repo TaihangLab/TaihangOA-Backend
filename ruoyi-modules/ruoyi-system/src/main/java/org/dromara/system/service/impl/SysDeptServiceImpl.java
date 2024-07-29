@@ -1,5 +1,6 @@
 package org.dromara.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.tree.Tree;
@@ -367,5 +368,12 @@ public class SysDeptServiceImpl implements ISysDeptService, DeptService {
         }
         return StringUtils.splitList(ancestors, StringUtils.SEPARATOR).stream().skip(1)  // 跳过第一个元素
             .map(Long::valueOf).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Tree<Long>> selectAllDeptTreeList(SysDept dept) {
+        List<SysDept> depts = this.baseMapper.selectList();
+        List<SysDeptVo> deptVoList = BeanUtil.copyToList(depts, SysDeptVo.class);
+        return buildDeptTreeSelect(deptVoList);
     }
 }

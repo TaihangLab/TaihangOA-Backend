@@ -7,6 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * 大事记类型枚举类
+ *
+ * @author bailingnan
+ * @date 2024/07/29
+ */
 @Getter
 @AllArgsConstructor
 @ToString

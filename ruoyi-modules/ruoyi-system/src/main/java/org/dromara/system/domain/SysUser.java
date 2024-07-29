@@ -1,11 +1,13 @@
 package org.dromara.system.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
-import org.dromara.common.core.constant.UserConstants;
-import org.dromara.common.tenant.core.TenantEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.dromara.common.core.constant.UserConstants;
+import org.dromara.common.core.enums.DiplomaTypeEnum;
+import org.dromara.common.core.enums.JobTitleEnum;
+import org.dromara.common.tenant.core.TenantEntity;
 
 import java.util.Date;
 
@@ -66,6 +68,16 @@ public class SysUser extends TenantEntity {
      * 用户头像
      */
     private Long avatar;
+
+    /**
+     * 用户职称
+     */
+    private JobTitleEnum jobTitle;
+
+    /**
+     * 用户学历
+     */
+    private DiplomaTypeEnum diploma;
 
     /**
      * 密码

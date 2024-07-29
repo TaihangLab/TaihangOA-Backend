@@ -91,4 +91,7 @@ public interface SysUserMapper extends BaseMapperPlus<SysUser, SysUserVo> {
     int updateById(@Param(Constants.ENTITY) SysUser user);
 
     int updateAvatar(@Param("oldEndPoint") String oldEndPoint, @Param("newEndPoint") String newEndPoint);
+
+    Page<SysUser> selectAllPageUserList(@Param("page") Page<SysUser> page,
+        @Param(Constants.WRAPPER) Wrapper<SysUser> queryWrapper);
 }

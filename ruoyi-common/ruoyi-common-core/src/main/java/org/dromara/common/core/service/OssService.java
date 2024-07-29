@@ -26,4 +26,6 @@ public interface OssService {
      * @return 列表
      */
     List<OssDTO> selectByIds(String ossIds);
+
+    void updateIP(String oldEndPoint, String newEndPoint);
 }

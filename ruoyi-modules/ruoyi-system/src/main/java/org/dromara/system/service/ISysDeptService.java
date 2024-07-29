@@ -1,6 +1,7 @@
 package org.dromara.system.service;
 
 import cn.hutool.core.lang.tree.Tree;
+import org.dromara.system.domain.SysDept;
 import org.dromara.system.domain.bo.SysDeptBo;
 import org.dromara.system.domain.vo.SysDeptVo;
 
@@ -122,4 +123,6 @@ public interface ISysDeptService {
      * @return 结果
      */
     int deleteDeptById(Long deptId);
+
+    List<Tree<Long>> selectAllDeptTreeList(SysDept dept);
 }

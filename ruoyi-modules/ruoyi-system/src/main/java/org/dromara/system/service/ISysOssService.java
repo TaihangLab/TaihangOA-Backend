@@ -79,4 +79,5 @@ public interface ISysOssService {
      */
     Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid);
 
+    List<SysOssVo> uploadMultipleFiles(MultipartFile[] files);
 }
