@@ -15,7 +15,6 @@ import org.dromara.project.domain.vo.ProjectFundsVO;
 import org.dromara.project.mapper.ProjectFundsMapper;
 import org.dromara.project.service.ProjectBalanceService;
 import org.dromara.project.service.ProjectFundsService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,7 +75,7 @@ public class ProjectFundsServiceImpl implements ProjectFundsService {
     @Transactional(rollbackFor = Exception.class)
     public void insertProjectFunds(ProjectFundsBO projectFundsBO, Long projectId) {
         ProjectFunds projectFunds = new ProjectFunds();
-        BeanUtils.copyProperties(projectFundsBO, projectFunds);
+        BeanUtil.copyProperties(projectFundsBO, projectFunds);
         projectFunds.setProjectId(projectId);
         if (projectFundsMapper.insert(projectFunds) != 1) {
             throw new RuntimeException("新增项目经费失败");
@@ -134,7 +133,7 @@ public class ProjectFundsServiceImpl implements ProjectFundsService {
     @Transactional(rollbackFor = Exception.class)
     public void updateProjectFunds(ProjectFundsBO projectFundsBO, Long projectId) {
         ProjectFunds projectFunds = new ProjectFunds();
-        BeanUtils.copyProperties(projectFundsBO, projectFunds);
+        BeanUtil.copyProperties(projectFundsBO, projectFunds);
         //        ProjectFunds projectFundsOld = projectFundsMapper.selectOne(
         //            new LambdaQueryWrapper<ProjectFunds>().eq(ProjectFunds::getProjectId, projectId));
         //        ProjectBalancePaid projectBalancePaid=projectBalanceService.getProjectBalancePaidByProjectId(projectId);

@@ -1,5 +1,6 @@
 package org.dromara.project.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -20,7 +21,6 @@ import org.dromara.project.service.IntellectualPropertyService;
 import org.dromara.project.service.IpOssService;
 import org.dromara.project.service.IpUserService;
 import org.dromara.project.service.ProjectBaseInfoService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,7 +51,7 @@ public class IntellectualPropertyServiceImpl implements IntellectualPropertyServ
             throw new IllegalArgumentException("intellectualPropertyBO can not be null");
         }
         IntellectualProperty intellectualProperty = new IntellectualProperty();
-        BeanUtils.copyProperties(intellectualPropertyBO, intellectualProperty);
+        BeanUtil.copyProperties(intellectualPropertyBO, intellectualProperty);
         int cnt = intellectualPropertyMapper.insert(intellectualProperty);
         if (cnt != 1) {
             log.error("新增知识产权失败 intellectualPropertyBO:{}", intellectualPropertyBO);
@@ -89,7 +89,7 @@ public class IntellectualPropertyServiceImpl implements IntellectualPropertyServ
             throw new IllegalArgumentException("intellectualPropertyBO can not be null");
         }
         IntellectualProperty intellectualProperty = new IntellectualProperty();
-        BeanUtils.copyProperties(intellectualPropertyBO, intellectualProperty);
+        BeanUtil.copyProperties(intellectualPropertyBO, intellectualProperty);
         int cnt = intellectualPropertyMapper.updateById(intellectualProperty);
         if (cnt != 1) {
             log.info("cnt:{}", cnt);
@@ -114,7 +114,7 @@ public class IntellectualPropertyServiceImpl implements IntellectualPropertyServ
         if (intellectualProperty == null) {
             throw new NoSuchElementException("ipId为:" + ipId + "的知识产权不存在");
         }
-        BeanUtils.copyProperties(intellectualProperty, intellectualPropertyDetailVO);
+        BeanUtil.copyProperties(intellectualProperty, intellectualPropertyDetailVO);
         if (UNASSOCIATED_PROJECT_CODE.equals(intellectualProperty.getProjectId())) {
             intellectualPropertyDetailVO.setAssignedSubjectName(UNASSOCIATED_PROJECT_IDENTIFIER);
         } else {

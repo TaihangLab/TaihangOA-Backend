@@ -1,5 +1,6 @@
 package org.dromara.project.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,6 @@ import org.dromara.system.domain.SysDept;
 import org.dromara.system.domain.SysUser;
 import org.dromara.system.mapper.SysDeptMapper;
 import org.dromara.system.mapper.SysUserMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +52,7 @@ public class ProjectUserServiceImpl implements ProjectUserService {
     // 创建 ProjectUserVo 对象
     private ProjectUserVo createProjectUserVo(SysUser user) {
         ProjectUserVo projectUserVo = new ProjectUserVo();
-        BeanUtils.copyProperties(user, projectUserVo);
+        BeanUtil.copyProperties(user, projectUserVo);
         setProjectLevelCount(projectUserVo, user.getUserId(), false);
         setProjectLevelCount(projectUserVo, user.getUserId(), true);
         return projectUserVo;
@@ -282,7 +282,7 @@ public class ProjectUserServiceImpl implements ProjectUserService {
             ProjectUserVo projectUserVo = new ProjectUserVo();
             projectUserVo.setDeptName(deptName);
             projectUserVo.setProjectUserRoles(projectUserRoleEnums); // 设置项目成员角色
-            BeanUtils.copyProperties(user, projectUserVo);
+            BeanUtil.copyProperties(user, projectUserVo);
 
             projectUserVos.add(projectUserVo);
         }

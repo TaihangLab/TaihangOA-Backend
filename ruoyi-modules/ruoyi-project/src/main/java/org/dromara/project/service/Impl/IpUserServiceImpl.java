@@ -1,5 +1,6 @@
 package org.dromara.project.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,6 @@ import org.dromara.project.mapper.IpUserMapper;
 import org.dromara.project.service.IpUserService;
 import org.dromara.system.domain.SysUser;
 import org.dromara.system.service.ISysUserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -145,7 +145,7 @@ public class IpUserServiceImpl implements IpUserService {
             sysUserList.stream().map(SysUser::getDeptId).collect(Collectors.toList()));
         return sysUserList.stream().map(sysUser -> {
             IpUserVO ipUserVO = new IpUserVO();
-            BeanUtils.copyProperties(sysUser, ipUserVO);
+            BeanUtil.copyProperties(sysUser, ipUserVO);
             ipUserVO.setDeptName(deptIdNameMap.get(sysUser.getDeptId()));
             return ipUserVO;
         }).collect(Collectors.toList());

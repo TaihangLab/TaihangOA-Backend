@@ -1,5 +1,6 @@
 package org.dromara.project.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +16,6 @@ import org.dromara.project.service.ProjectFundsService;
 import org.dromara.project.service.ProjectMilestoneService;
 import org.dromara.system.domain.SysOss;
 import org.dromara.system.mapper.SysOssMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -157,7 +157,7 @@ public class ProjectFundsReceivedServiceImpl implements ProjectFundsReceivedServ
 
         for (ProjectFundsReceived projectFundsReceived : projectFundsReceiveds) {
             ProjectFundsReceivedVo projectFundsReceivedVo = new ProjectFundsReceivedVo();
-            BeanUtils.copyProperties(projectFundsReceived, projectFundsReceivedVo);
+            BeanUtil.copyProperties(projectFundsReceived, projectFundsReceivedVo);
 
             Long milestoneId = projectFundsReceived.getMilestoneId();
 

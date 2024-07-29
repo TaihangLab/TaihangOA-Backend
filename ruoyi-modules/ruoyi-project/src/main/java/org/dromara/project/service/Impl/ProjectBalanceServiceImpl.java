@@ -1,5 +1,6 @@
 package org.dromara.project.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,6 @@ import org.dromara.project.mapper.ProjectBalancePaidMapper;
 import org.dromara.project.mapper.ProjectBalanceUnpaidMapper;
 import org.dromara.project.mapper.ProjectFundsMapper;
 import org.dromara.project.service.ProjectBalanceService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,12 +75,12 @@ public class ProjectBalanceServiceImpl implements ProjectBalanceService {
             new LambdaQueryWrapper<ProjectBalanceUnpaid>().eq(ProjectBalanceUnpaid::getProjectId, projectId));
 
         ProjectBalanceVO projectBalanceVO = new ProjectBalanceVO();
-        BeanUtils.copyProperties(projectBalancePaid, projectBalanceVO);
-        BeanUtils.copyProperties(projectBalanceUnpaid, projectBalanceVO);
+        BeanUtil.copyProperties(projectBalancePaid, projectBalanceVO);
+        BeanUtil.copyProperties(projectBalanceUnpaid, projectBalanceVO);
 
         projectFundsAndBalanceVO.setProjectBalance(projectBalanceVO);
         ProjectFundsVO projectFundsVO = new ProjectFundsVO();
-        BeanUtils.copyProperties(projectFunds, projectFundsVO);
+        BeanUtil.copyProperties(projectFunds, projectFundsVO);
         projectFundsAndBalanceVO.setProjectFunds(projectFundsVO);
         return projectFundsAndBalanceVO;
     }

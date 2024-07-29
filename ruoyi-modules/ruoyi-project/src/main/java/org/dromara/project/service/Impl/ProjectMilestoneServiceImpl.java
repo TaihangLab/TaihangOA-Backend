@@ -1,5 +1,6 @@
 package org.dromara.project.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
@@ -25,7 +26,6 @@ import org.dromara.project.service.ProjectMilestoneService;
 import org.dromara.system.domain.SysOss;
 import org.dromara.system.domain.vo.SysOssVo;
 import org.dromara.system.mapper.SysOssMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,7 +68,7 @@ public class ProjectMilestoneServiceImpl implements ProjectMilestoneService {
             throw new IllegalArgumentException("projectMilestoneBo cannot be null");
         }
         ProjectMilestone projectMilestone = new ProjectMilestone();
-        BeanUtils.copyProperties(projectMilestoneBo, projectMilestone);
+        BeanUtil.copyProperties(projectMilestoneBo, projectMilestone);
 
         // 插入 projectMilestone
         int insertedRows = projectMilestoneMapper.insert(projectMilestone);
@@ -306,7 +306,7 @@ public class ProjectMilestoneServiceImpl implements ProjectMilestoneService {
 
         for (ProjectMilestone milestone : milestones) {
             ProjectMilestoneVo milestoneVo = new ProjectMilestoneVo();
-            BeanUtils.copyProperties(milestone, milestoneVo);
+            BeanUtil.copyProperties(milestone, milestoneVo);
 
             Set<ProjectMilestoneTypeEnum> categoryEnums = getCategoryEnumsByMilestoneId(milestone.getMilestoneId());
             milestoneVo.setCategoryTypeSet(categoryEnums);

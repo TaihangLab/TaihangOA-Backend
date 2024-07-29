@@ -1,5 +1,6 @@
 package org.dromara.project.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +9,6 @@ import org.dromara.project.domain.bo.ProjectTargetBO;
 import org.dromara.project.domain.vo.ProjectTargetVO;
 import org.dromara.project.mapper.ProjectTargetMapper;
 import org.dromara.project.service.ProjectTargetService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +54,7 @@ public class ProjectTargetServiceImpl implements ProjectTargetService {
         }
         List<ProjectTarget> projectTargetList = projectTargetBOList.stream().map(bo -> {
             ProjectTarget projectTarget = new ProjectTarget();
-            BeanUtils.copyProperties(bo, projectTarget);
+            BeanUtil.copyProperties(bo, projectTarget);
             projectTarget.setProjectId(projectId);
             return projectTarget;
         }).collect(Collectors.toList());

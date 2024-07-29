@@ -1,5 +1,6 @@
 package org.dromara.project.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.dromara.common.core.utils.DateUtils;
@@ -8,7 +9,6 @@ import org.dromara.project.domain.bo.ProjectPlanBO;
 import org.dromara.project.domain.vo.ProjectPlanVO;
 import org.dromara.project.mapper.ProjectPlanMapper;
 import org.dromara.project.service.projectPlanService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -96,7 +96,7 @@ public class ProjectPlanServiceImpl implements projectPlanService {
 
     private ProjectPlan projectPlanConverter(ProjectPlanBO bo, Long projectId) {
         ProjectPlan projectPlan = new ProjectPlan();
-        BeanUtils.copyProperties(bo, projectPlan);
+        BeanUtil.copyProperties(bo, projectPlan);
         projectPlan.setProjectId(projectId);
         Optional.ofNullable(bo.getStageStartDate())
             .ifPresent(date -> projectPlan.setStageStartDate(DateUtils.yearMonthToLocalDate(date)));

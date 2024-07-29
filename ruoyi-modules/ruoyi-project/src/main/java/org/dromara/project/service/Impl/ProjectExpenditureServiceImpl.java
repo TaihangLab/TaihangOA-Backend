@@ -1,5 +1,6 @@
 package org.dromara.project.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,6 @@ import org.dromara.project.domain.vo.ProjectExpenditureVO;
 import org.dromara.project.mapper.ProjectExpenditureMapper;
 import org.dromara.project.service.ProjectBalanceService;
 import org.dromara.project.service.ProjectExpenditureService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -130,7 +130,7 @@ public class ProjectExpenditureServiceImpl implements ProjectExpenditureService 
         //        projectExpenditureBO.setSecondLevelSubject(secondLevelSubject);
         //插入支出明细
         ProjectExpenditure projectExpenditure = new ProjectExpenditure();
-        BeanUtils.copyProperties(projectExpenditureBO, projectExpenditure);
+        BeanUtil.copyProperties(projectExpenditureBO, projectExpenditure);
         projectExpenditureListToInsert.add(projectExpenditure);
         projectBalancePaidListToInsert.add(projectBalancePaid);
         projectBalanceUnpaidListToInsert.add(projectBalanceUnpaid);

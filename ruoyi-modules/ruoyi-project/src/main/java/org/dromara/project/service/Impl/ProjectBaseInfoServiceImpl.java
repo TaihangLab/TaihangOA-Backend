@@ -1,5 +1,6 @@
 package org.dromara.project.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,7 +23,6 @@ import org.dromara.project.service.ProjectBalanceService;
 import org.dromara.project.service.ProjectBaseInfoService;
 import org.dromara.project.service.ProjectFundsService;
 import org.dromara.project.service.ProjectUserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -65,7 +65,7 @@ public class ProjectBaseInfoServiceImpl implements ProjectBaseInfoService {
         //调用projectUserService单独返回项目负责人名称
         projectInfoVO.setProjectLeader(projectUserService.findProjectLeaderNameByProjectId(projectId));
 
-        BeanUtils.copyProperties(projectBaseInfo, projectInfoVO);
+        BeanUtil.copyProperties(projectBaseInfo, projectInfoVO);
         return projectInfoVO;
     }
 
@@ -92,7 +92,7 @@ public class ProjectBaseInfoServiceImpl implements ProjectBaseInfoService {
             throw new IllegalArgumentException("projectBaseInfoBO cannot be null");
         }
         ProjectBaseInfo projectBaseInfo = new ProjectBaseInfo();
-        BeanUtils.copyProperties(projectBaseInfoBO, projectBaseInfo);
+        BeanUtil.copyProperties(projectBaseInfoBO, projectBaseInfo);
         int cnt = projectBaseInfoMapper.insert(projectBaseInfo);
         if (cnt != 1) {
             log.error("新增失败的projectBaseInfo为:{}", projectBaseInfo);
@@ -119,7 +119,7 @@ public class ProjectBaseInfoServiceImpl implements ProjectBaseInfoService {
             throw new IllegalArgumentException("projectId cannot be null");
         }
         ProjectBaseInfo projectBaseInfo = new ProjectBaseInfo();
-        BeanUtils.copyProperties(projectBaseInfoBO, projectBaseInfo);
+        BeanUtil.copyProperties(projectBaseInfoBO, projectBaseInfo);
         if (projectBaseInfoMapper.updateById(projectBaseInfo) != 1) {
             log.error("更新失败的projectBaseInfo为:{}", projectBaseInfo);
             throw new RuntimeException("更新项目基本信息失败");
