@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2023/12/14
  */
 @Data
-public class ProjectDetailsVo {
+public class ProjectDetailsVO {
 
     /**
      * 项目信息
