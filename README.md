@@ -25,14 +25,6 @@
 
 > 文档地址: [plus-doc](https://plus-doc.dromara.org)
 
-## 赞助商
-
-MaxKey 业界领先单点登录产品 - https://gitee.com/dromara/MaxKey <br>
-CCFlow 驰聘低代码-流程-表单 - https://gitee.com/opencc/RuoYi-JFlow <br>
-数舵科技 软件定制开发APP小程序等 - http://www.shuduokeji.com/ <br>
-引迈信息 软件开发平台 - https://www.jnpfsoft.com/index.html?from=plus-doc <br>
-[如何成为赞助商 加群联系作者详谈](https://plus-doc.dromara.org/#/common/add_group)
-
 # 本框架与RuoYi的功能差异
 
 | 功能          | 本框架                                                                                                               | RuoYi                                                                              |
@@ -133,15 +125,6 @@ CCFlow 驰聘低代码-流程-表单 - https://gitee.com/opencc/RuoYi-JFlow <br>
 ## 软件架构图
 
 ![Plus部署架构图](https://foruda.gitee.com/images/1678981882624240692/ae2a3f3e_1766278.png "Plus部署架构图.png")
-
-## 如何参与贡献
-
-[参与贡献的方式 https://plus-doc.dromara.org/#/common/contribution](https://plus-doc.dromara.org/#/common/contribution)
-
-## 捐献作者
-作者为兼职做开源,平时还需要工作,如果帮到了您可以请作者吃个盒饭  
-<img src="https://foruda.gitee.com/images/1678975784848381069/d8661ed9_1766278.png" width="300px" height="450px" />
-<img src="https://foruda.gitee.com/images/1678975801230205215/6f96229d_1766278.png" width="300px" height="450px" />
 
 ## 演示图例
 
