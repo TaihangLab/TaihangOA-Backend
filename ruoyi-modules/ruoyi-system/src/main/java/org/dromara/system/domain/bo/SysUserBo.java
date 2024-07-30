@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.dromara.common.core.constant.UserConstants;
+import org.dromara.common.core.enums.DiplomaTypeEnum;
+import org.dromara.common.core.enums.JobTitleEnum;
 import org.dromara.common.core.xss.Xss;
 import org.dromara.common.mybatis.core.domain.BaseEntity;
 import org.dromara.system.domain.SysUser;
@@ -111,6 +113,16 @@ public class SysUserBo extends BaseEntity {
     public SysUserBo(Long userId) {
         this.userId = userId;
     }
+
+    /**
+     * 用户职称
+     */
+    private JobTitleEnum jobTitle;
+
+    /**
+     * 用户学历
+     */
+    private DiplomaTypeEnum diploma;
 
     public boolean isSuperAdmin() {
         return UserConstants.SUPER_ADMIN_ID.equals(this.userId);
