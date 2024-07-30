@@ -1,5 +1,6 @@
 package org.dromara.system.controller.system;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.hutool.core.lang.tree.Tree;
@@ -23,6 +24,7 @@ import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.common.satoken.utils.LoginHelper;
 import org.dromara.common.tenant.helper.TenantHelper;
 import org.dromara.common.web.core.BaseController;
+import org.dromara.system.domain.SysUser;
 import org.dromara.system.domain.bo.SysDeptBo;
 import org.dromara.system.domain.bo.SysPostBo;
 import org.dromara.system.domain.bo.SysRoleBo;
@@ -297,4 +299,12 @@ public class SysUserController extends BaseController {
         return R.ok(userService.selectUserListByDept(deptId));
     }
 
+    /**
+     * 查询全部用户列表，用于工作流
+     */
+    @SaCheckLogin
+    @GetMapping("/selectAllUser")
+    public TableDataInfo<SysUser> selectAllUser(SysUser user, PageQuery pageQuery) {
+        return userService.selectAllPageUserList(user, pageQuery);
+    }
 }
