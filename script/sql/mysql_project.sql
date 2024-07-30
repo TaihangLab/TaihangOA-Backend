@@ -1221,6 +1221,7 @@ create table project_balance_unpaid
     ywf_zscqswf_zj_unpaid                    decimal(12, 6) default 0.000000 not null comment '业务费_知识产权事务费_直接_未支付',
     ywf_zscqswf_zx_zj_unpaid                 decimal(12, 6) default 0.000000 not null comment '业务费_知识产权事务费_专项_直接_未支付',
     ywf_zscqswf_zc_zj_unpaid                 decimal(12, 6) default 0.000000 not null comment '业务费_知识产权事务费_自筹_直接_未支付',
+    ywf_clsyf_zj_unpaid decimal(12, 6) default 0.000000 not null comment '业务费_车辆使用费_直接_未支付',
     ywf_clsyf_zx_zj_unpaid                   decimal(12, 6) default 0.000000 not null comment '业务费_车辆使用费_专项_直接_未支付',
     ywf_clsyf_zc_zj_unpaid                   decimal(12, 6) default 0.000000 not null comment '业务费_车辆使用费_自筹_直接_未支付',
     ywf_chlf_zj_unpaid                       decimal(12, 6) default 0.000000 not null comment '业务费_差旅费_直接_未支付',
