@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 项目用户管理controller
+ * 项目用户管理
  *
  * @author bailingnan
  * @date 2024/02/06

@@ -1416,7 +1416,8 @@ create table sys_user
     update_by   bigint null comment '更新者',
     update_time datetime null comment '更新时间',
     remark      varchar(500) null comment '备注',
-    jobTitle    tinyint null comment '用户职称，0正高级，1副高级，2中级，3初级，4无'
+    job_title tinyint null comment '用户职称，0正高级，1副高级，2中级，3初级，4无',
+    diploma   tinyint null comment '学历，0博士研究生，1硕士研究生，2本科，3专科'
 ) comment '用户信息表';
 -- ----------------------------
 -- 插入-项目管理菜单数据
