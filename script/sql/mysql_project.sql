@@ -1389,6 +1389,36 @@ create table project_balance_unpaid
 )
     comment '项目余额表（单位：万元）';
 -- ----------------------------
+-- 12、用户信息表
+-- ----------------------------
+-- auto-generated definition
+create table sys_user
+(
+    user_id     bigint      not null comment '用户ID'
+        primary key,
+    tenant_id   varchar(20)  default '000000' null comment '租户编号',
+    dept_id     bigint null comment '部门ID',
+    user_name   varchar(30) not null comment '用户账号',
+    nick_name   varchar(30) not null comment '用户昵称',
+    user_type   varchar(10)  default 'sys_user' null comment '用户类型（sys_user系统用户）',
+    email       varchar(50)  default '' null comment '用户邮箱',
+    phonenumber varchar(11)  default '' null comment '手机号码',
+    sex         char         default '0' null comment '用户性别（0男 1女 2未知）',
+    avatar      bigint null comment '头像地址',
+    password    varchar(100) default '' null comment '密码',
+    status      char         default '0' null comment '帐号状态（0正常 1停用）',
+    del_flag    char         default '0' null comment '删除标志（0代表存在 2代表删除）',
+    login_ip    varchar(128) default '' null comment '最后登录IP',
+    login_date  datetime null comment '最后登录时间',
+    create_dept bigint null comment '创建部门',
+    create_by   bigint null comment '创建者',
+    create_time datetime null comment '创建时间',
+    update_by   bigint null comment '更新者',
+    update_time datetime null comment '更新时间',
+    remark      varchar(500) null comment '备注',
+    jobTitle    tinyint null comment '用户职称，0正高级，1副高级，2中级，3初级，4无'
+) comment '用户信息表';
+-- ----------------------------
 -- 插入-项目管理菜单数据
 -- ----------------------------
 INSERT INTO sys_menu (menu_id, menu_name, parent_id, order_num, path, component, query_param, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark) VALUES (1727245396517777410, '项目管理', 0, 6, 'project', null, null, 1, 0, 'M', '0', '0', null, 'documentation', 1, '2023-11-22 16:39:28', 1, '2023-11-23 11:11:05', '');
