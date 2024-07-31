@@ -17,9 +17,10 @@
         <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
         <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
         <result property="deleted" column="deleted" jdbcType="TINYINT"/>
+        <result property="createDept" column="create_dept" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        ip_id,project_id,ip_name,ip_type,ip_status,ip_date,milestone_id,create_time,update_time,create_by,update_by,deleted
+        ip_id,project_id,ip_name,ip_type,ip_status,ip_date,milestone_id,create_time,update_time,create_by,update_by,deleted,create_dept
     </sql>
 </mapper>

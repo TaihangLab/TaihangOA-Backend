@@ -32,11 +32,13 @@ create table project_base_info
     patent_details                    varchar(500) null comment '专利情况',
     software_copyright_details        varchar(500) null comment '软著情况',
     standard_details                  varchar(500) null comment '标准情况',
+    create_dept bigint null comment '创建部门',
     create_time                       datetime null comment '创建时间',
     update_time                       datetime null comment '更新时间',
     create_by                         varchar(100) default '' null comment '创建人',
     update_by                         varchar(100) default '' null comment '更新人',
-    deleted                           tinyint      default 0 null comment '是否删除，2删除，0未删除'
+    deleted     tinyint     default 0 null comment '是否删除，2删除，0未删除',
+    tenant_id   varchar(20) default '000000' null comment '租户编号',
 ) comment '项目表';
 
 -- ----------------------------
@@ -322,7 +324,8 @@ create table project_expenditure
     update_time          datetime null comment '更新时间',
     create_by            varchar(100)   default '' null comment '创建人',
     update_by            varchar(100)   default '' null comment '更新人',
-    deleted              tinyint        default 0 null comment '是否删除，2删除，0未删除'
+    deleted     tinyint default 0 null comment '是否删除，2删除，0未删除',
+    create_dept bigint null comment '创建部门'
 ) comment '项目支出表';
 
 create index project_expenditure_project_id_index
@@ -1420,6 +1423,26 @@ create table sys_user
     job_title tinyint null comment '用户职称，0正高级，1副高级，2中级，3初级，4无',
     diploma   tinyint null comment '学历，0博士研究生，1硕士研究生，2本科，3专科'
 ) comment '用户信息表';
+-- ----------------------------
+-- 13、专项经费到账表
+-- ----------------------------
+create table project_funds_received
+(
+    received_id     bigint auto_increment comment '主键'
+        primary key,
+    project_id      bigint                          not null comment '项目ID',
+    milestone_id    bigint                          not null comment '大事记ID',
+    amount_received decimal(12, 6) default 0.000000 not null comment '到账金额',
+    received_type   tinyint null comment '到账类型，0发票，1收据',
+    received_from   varchar(100) null comment '来款单位',
+    received_date   date null comment '到账日期',
+    create_time     datetime null comment '创建时间',
+    update_time     datetime null comment '更新时间',
+    create_by       varchar(100) null comment '创建人',
+    update_by       varchar(100) null comment '更新人',
+    create_dept     bigint null comment '创建部门'
+) comment '专项经费到账';
+
 -- ----------------------------
 -- 插入-项目管理菜单数据
 -- ----------------------------

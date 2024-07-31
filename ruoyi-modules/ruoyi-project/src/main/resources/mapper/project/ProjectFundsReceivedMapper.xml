@@ -16,12 +16,13 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
         <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="createDept" column="create_dept" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         received_id,project_id,milestone_id,
         amount_received,received_type,received_from,
         received_date,create_time,update_time,
-        create_by,update_by
+        create_by,update_by,create_dept
     </sql>
 </mapper>

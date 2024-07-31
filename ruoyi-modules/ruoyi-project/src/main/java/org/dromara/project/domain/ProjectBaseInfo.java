@@ -157,4 +157,9 @@ public class ProjectBaseInfo extends BaseEntity {
     @TableField(select = false)
     private Integer deleted;
 
+    /**
+     * 租户Id
+     */
+    private String tenantId;
+
 }
