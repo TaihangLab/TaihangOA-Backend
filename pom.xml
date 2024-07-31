@@ -344,6 +344,11 @@
                 <artifactId>ruoyi-system</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>org.dromara</groupId>
+                <artifactId>ruoyi-project</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.dromara</groupId>
