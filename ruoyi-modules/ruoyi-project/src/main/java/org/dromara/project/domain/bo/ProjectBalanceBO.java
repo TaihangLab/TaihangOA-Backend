@@ -3,6 +3,9 @@ package org.dromara.project.domain.bo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import io.github.linpeilie.annotations.AutoMapper;
+import lombok.Data;
+import org.dromara.project.domain.ProjectBalance;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -11,6 +14,8 @@ import java.math.BigDecimal;
  * @author bailingnan
  * @date 2024/7/24
  */
+@Data
+@AutoMapper(target = ProjectBalance.class, reverseConvertGenerate = false)
 public class ProjectBalanceBO implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

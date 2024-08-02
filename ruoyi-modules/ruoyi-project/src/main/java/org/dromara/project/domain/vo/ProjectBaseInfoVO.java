@@ -1,12 +1,14 @@
 package org.dromara.project.domain.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import org.dromara.common.core.constant.DateConstants;
 import org.dromara.common.core.enums.ConfirmationStatusEnum;
 import org.dromara.common.core.enums.ExistenceStateEnum;
 import org.dromara.common.core.enums.ProjectLevelEnum;
 import org.dromara.common.core.enums.ProjectStatusEnum;
+import org.dromara.project.domain.ProjectBaseInfo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,6 +21,7 @@ import java.util.Date;
  * @date 2023/12/12
  */
 @Data
+@AutoMapper(target = ProjectBaseInfo.class)
 public class ProjectBaseInfoVO {
 
     /**

@@ -1,8 +1,10 @@
 package org.dromara.project.domain.vo;
 
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import org.dromara.common.core.enums.IntellectualPropertyStatusEnum;
 import org.dromara.common.core.enums.IntellectualPropertyTypeEnum;
+import org.dromara.project.domain.IntellectualProperty;
 import org.dromara.system.domain.vo.SysOssVo;
 
 import java.time.LocalDate;
@@ -15,6 +17,7 @@ import java.util.List;
  * @date 2024/1/3
  */
 @Data
+@AutoMapper(target = IntellectualProperty.class)
 public class IntellectualPropertyDetailVO {
     /**
      * 知识产权id

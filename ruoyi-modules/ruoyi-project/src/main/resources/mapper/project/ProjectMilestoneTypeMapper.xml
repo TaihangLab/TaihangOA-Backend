@@ -8,9 +8,10 @@
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="milestoneId" column="milestone_id" jdbcType="BIGINT"/>
         <result property="milestoneType" column="milestone_type" jdbcType="TINYINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,milestone_id,milestone_type
+        id,milestone_id,milestone_type,tenant_id
     </sql>
 </mapper>

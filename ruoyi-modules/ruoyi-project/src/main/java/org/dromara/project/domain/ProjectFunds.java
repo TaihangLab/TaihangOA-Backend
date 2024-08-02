@@ -1279,4 +1279,8 @@ public class ProjectFunds implements Serializable {
      */
     @FundsFieldDescription("专家咨询费_自筹_间接")
     private BigDecimal zjzxfZcJj;
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 }

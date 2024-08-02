@@ -8,6 +8,7 @@
         <id property="paidId" column="paid_id" jdbcType="BIGINT"/>
         <result property="fundsId" column="funds_id" jdbcType="BIGINT"/>
         <result property="projectId" column="project_id" jdbcType="BIGINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
         <result property="totalFundsAllPaid" column="total_funds_all_paid" jdbcType="DECIMAL"/>
         <result property="totalFundsZjPaid" column="total_funds_zj_paid" jdbcType="DECIMAL"/>
         <result property="totalFundsJjPaid" column="total_funds_jj_paid" jdbcType="DECIMAL"/>
@@ -309,6 +310,6 @@
         clsyf_zx_jj_paid,clsyf_zc_jj_paid,chlf_jj_paid,
         chlf_zx_jj_paid,chlf_zc_jj_paid,hyhwf_jj_paid,
         hyhwf_zx_jj_paid,hyhwf_zc_jj_paid,zjzxf_jj_paid,
-        zjzxf_zx_jj_paid,zjzxf_zc_jj_paid
+        zjzxf_zx_jj_paid,zjzxf_zc_jj_paid,tenant_id
     </sql>
 </mapper>

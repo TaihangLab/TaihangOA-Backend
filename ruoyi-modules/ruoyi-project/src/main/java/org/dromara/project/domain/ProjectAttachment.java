@@ -29,4 +29,9 @@ public class ProjectAttachment implements Serializable {
      *
      */
     private Long ossId;
+
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 }

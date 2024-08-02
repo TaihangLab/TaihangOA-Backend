@@ -9,7 +9,7 @@ import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
+import org.dromara.common.tenant.core.TenantEntity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -17,14 +17,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * 专项经费到账
+ * 专项经费到账表
  *
- * @TableName project_funds_received
+ * @author bailingnan
+ * @date 2024/08/01
  */
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "project_funds_received")
 @Data
-public class ProjectFundsReceived extends BaseEntity implements Serializable {
+public class ProjectFundsReceived extends TenantEntity implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**

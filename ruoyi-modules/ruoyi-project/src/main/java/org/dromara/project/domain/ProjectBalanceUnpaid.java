@@ -1110,4 +1110,8 @@ public class ProjectBalanceUnpaid implements Serializable {
      */
     @UnPaidFieldDescription("专家咨询费_自筹_间接")
     private BigDecimal zjzxfZcJjUnpaid;
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 }

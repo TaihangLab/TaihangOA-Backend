@@ -3,11 +3,13 @@ package org.dromara.project.domain.vo;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.dromara.common.core.enums.*;
 import org.dromara.common.excel.annotation.ExcelEnumFormat;
 import org.dromara.common.excel.convert.ExcelEnumConvert;
+import org.dromara.project.domain.ProjectExpenditure;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -19,6 +21,7 @@ import java.time.LocalDate;
  */
 @Data
 @NoArgsConstructor
+@AutoMapper(target = ProjectExpenditure.class)
 public class ProjectExpenditureExportVO implements Serializable {
 
     private static final long serialVersionUID = 1L;

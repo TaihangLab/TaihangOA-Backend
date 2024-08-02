@@ -1,7 +1,9 @@
 package org.dromara.project.domain.vo;
 
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import org.dromara.common.core.enums.ProjectMilestoneTypeEnum;
+import org.dromara.project.domain.ProjectMilestone;
 import org.dromara.system.domain.SysOss;
 
 import java.time.LocalDate;
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@AutoMapper(target = ProjectMilestone.class)
 public class ProjectMilestoneVo {
 
     /**

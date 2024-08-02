@@ -1,7 +1,9 @@
 package org.dromara.project.domain.bo;
 
+import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.dromara.project.domain.ProjectTarget;
 
 /**
  * 项目指标BO
@@ -10,6 +12,7 @@ import lombok.Data;
  * @date 2023/12/15
  */
 @Data
+@AutoMapper(target = ProjectTarget.class, reverseConvertGenerate = false)
 public class ProjectTargetBO {
     /**
      * 项目ID

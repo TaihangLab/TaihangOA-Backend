@@ -7,9 +7,10 @@
     <resultMap id="ProjectMilestoneOssResult" type="org.dromara.project.domain.ProjectMilestoneOss">
         <id property="milestoneId" column="milestone_id" jdbcType="BIGINT"/>
         <id property="ossId" column="oss_id" jdbcType="BIGINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        milestone_id,oss_id
+        milestone_id,oss_id,tenant_id
     </sql>
 </mapper>

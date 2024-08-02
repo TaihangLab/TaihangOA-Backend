@@ -1,6 +1,7 @@
 package org.dromara.project.domain.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.dromara.common.core.constant.DateConstants;
@@ -9,6 +10,7 @@ import org.dromara.common.core.enums.ExistenceStateEnum;
 import org.dromara.common.core.enums.ProjectLevelEnum;
 import org.dromara.common.core.enums.ProjectStatusEnum;
 import org.dromara.common.mybatis.core.domain.BaseEntity;
+import org.dromara.project.domain.ProjectBaseInfo;
 
 import java.time.LocalDate;
 
@@ -19,6 +21,7 @@ import java.time.LocalDate;
  * @date 2023/12/14
  */
 @Data
+@AutoMapper(target = ProjectBaseInfo.class)
 public class ProjectInfoVO extends BaseEntity {
     private static final long serialVersionUID = 4817976403481927188L;
     /**

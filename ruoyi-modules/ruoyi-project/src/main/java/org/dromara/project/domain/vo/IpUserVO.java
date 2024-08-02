@@ -1,8 +1,10 @@
 package org.dromara.project.domain.vo;
 
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import org.dromara.common.core.enums.DiplomaTypeEnum;
 import org.dromara.common.core.enums.JobTitleEnum;
+import org.dromara.project.domain.IpUser;
 
 /**
  * 知识产权用户VO
@@ -11,6 +13,7 @@ import org.dromara.common.core.enums.JobTitleEnum;
  * @date 2024/1/3
  */
 @Data
+@AutoMapper(target = IpUser.class)
 public class IpUserVO {
     /**
      * ID

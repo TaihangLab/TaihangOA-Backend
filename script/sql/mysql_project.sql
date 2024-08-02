@@ -35,11 +35,14 @@ create table project_base_info
     create_dept bigint null comment '创建部门',
     create_time                       datetime null comment '创建时间',
     update_time                       datetime null comment '更新时间',
-    create_by                         varchar(100) default '' null comment '创建人',
-    update_by                         varchar(100) default '' null comment '更新人',
+    create_by bigint                       null comment '创建人',
+    update_by bigint                       null comment '更新人',
     deleted     tinyint     default 0 null comment '是否删除，2删除，0未删除',
-    tenant_id   varchar(20) default '000000' null comment '租户编号',
+    tenant_id varchar(20) default '000000' null comment '租户编号'
 ) comment '项目表';
+
+create index project_base_info_tenant_id_index
+    on project_base_info (tenant_id);
 
 -- ----------------------------
 -- 2、项目成员表
@@ -50,11 +53,12 @@ create table project_user
     project_id        bigint     not null comment '项目id',
     user_id           bigint     not null comment '项目人员id',
     project_user_role varchar(5) not null comment '项目成员角色，0：项目负责人；1：公司负责人；2：部门负责人；3：科研管理负责人；4：普通成员；5：未知角色',
+    tenant_id varchar(20) default '000000' null comment '租户编号',
     primary key (project_id, user_id, project_user_role)
 ) comment '项目和成员关联表' charset = utf8mb4;
 
-create index project_user_project_id_index
-    on project_user (project_id);
+create index project_user_tenant_id_index
+    on project_user (tenant_id);
 
 -- ----------------------------
 -- 3、项目经费预算表
@@ -292,8 +296,9 @@ create table project_funds
     zjzxf_jj                          decimal(12, 6) default 0.000000 not null comment '专家咨询费_间接',
     zjzxf_zx_jj                       decimal(12, 6) default 0.000000 not null comment '专家咨询费_专项_间接',
     zjzxf_zc_jj                       decimal(12, 6) default 0.000000 not null comment '专家咨询费_自筹_间接',
+    tenant_id varchar(20) default '000000' null comment '租户编号',
     constraint project_funds_project_id_uindex
-        unique (project_id)
+        unique (project_id, tenant_id)
 )
     comment '项目经费表（单位：万元）' collate = utf8mb4_bin;
 
@@ -322,14 +327,15 @@ create table project_expenditure
     amount               decimal(12, 2) default 0.00 not null comment '支出金额,单位:元',
     create_time          datetime null comment '创建时间',
     update_time          datetime null comment '更新时间',
-    create_by            varchar(100)   default '' null comment '创建人',
-    update_by            varchar(100)   default '' null comment '更新人',
+    create_by   bigint                       null comment '创建人',
+    update_by   bigint                       null comment '更新人',
     deleted     tinyint default 0 null comment '是否删除，2删除，0未删除',
-    create_dept bigint null comment '创建部门'
+    create_dept bigint                       null comment '创建部门',
+    tenant_id   varchar(20) default '000000' null comment '租户编号'
 ) comment '项目支出表';
 
-create index project_expenditure_project_id_index
-    on project_expenditure (project_id);
+create index project_expenditure_project_id_tenant_id_index
+    on project_expenditure (project_id, tenant_id);
 
 -- ----------------------------
 -- 4、项目指标表
@@ -343,11 +349,12 @@ create table project_target
     project_id     bigint not null comment '项目id',
     target_name    varchar(100) null comment '指标名称',
     midterm_target varchar(200) null comment '中期指标值/状态',
-    end_target     varchar(200) null comment '结束时指标值/状态'
+    end_target varchar(200)                 null comment '结束时指标值/状态',
+    tenant_id  varchar(20) default '000000' null comment '租户编号'
 ) comment '项目指标' charset = utf8mb4;
 
-create index project_target_project_id_index
-    on project_target (project_id);
+create index project_target_project_id_tenant_id_index
+    on project_target (project_id, tenant_id);
 
 -- ----------------------------
 -- 5、项目附件表
@@ -359,11 +366,12 @@ create table project_attachment
     id         bigint auto_increment comment '主键id'
         primary key,
     project_id bigint not null comment '项目id',
-    oss_id     bigint not null comment '文件oss_id'
+    oss_id    bigint                       not null comment '文件oss_id',
+    tenant_id varchar(20) default '000000' null comment '租户编号'
 ) comment '项目附件表' charset = utf8mb4;
 
 create index project_attachments_project_id_oss_id_index
-    on project_attachment (project_id, oss_id);
+    on project_attachment (project_id, oss_id, tenant_id);
 
 -- ----------------------------
 -- 6、项目大事纪表
@@ -377,11 +385,12 @@ create table project_milestone
     project_id       bigint not null comment '项目id',
     milestone_title  varchar(50) null comment '事纪名',
     milestone_remark varchar(100) null comment '事纪描述',
-    milestone_date   date null comment '大事纪时间'
+    milestone_date date                         null comment '大事纪时间',
+    tenant_id      varchar(20) default '000000' null comment '租户编号'
 ) comment '项目大事纪' charset = utf8mb4;
 
-create index project_milestone_project_id_index
-    on project_milestone (project_id);
+create index project_milestone_project_id_tenant_id_index
+    on project_milestone (project_id, tenant_id);
 
 -- ----------------------------
 -- 6、项目大事纪分类表
@@ -392,9 +401,12 @@ create table project_milestone_type
     id             bigint auto_increment comment '主键'
         primary key,
     milestone_id   bigint  not null comment '大事记ID',
-    milestone_type tinyint not null comment '大事记类型'
+    milestone_type tinyint                      not null comment '大事记类型',
+    tenant_id      varchar(20) default '000000' null comment '租户编号'
 )
     collate = utf8mb4_bin;
+create index project_milestone_type_tenant_id_index
+    on project_milestone_type (tenant_id);
 
 -- ----------------------------
 -- 6、项目大事纪分类关系表
@@ -416,9 +428,11 @@ create table project_milestone_oss
 (
     milestone_id bigint not null comment '项目大事纪id',
     oss_id       bigint not null comment '文件ossID',
+    tenant_id varchar(20) default '000000' null comment '租户编号',
     primary key (milestone_id, oss_id)
 ) comment '大事记和文件关联表' charset = utf8mb4;
-
+create index project_milestone_oss_tenant_id_index
+    on project_milestone_oss (tenant_id);
 
 -- ----------------------------
 -- 8、项目计划表
@@ -431,11 +445,12 @@ create table project_plan
     project_id       bigint not null comment '项目Id',
     stage_start_date date null comment '阶段开始日期',
     stage_end_date   date null comment '阶段结束日期',
-    stage_task       varchar(3000) null comment '阶段任务'
+    stage_task varchar(3000)                null comment '阶段任务',
+    tenant_id  varchar(20) default '000000' null comment '租户编号'
 ) comment '项目计划表';
 
-create index project_plan_project_id_index
-    on project_plan (project_id);
+create index project_target_project_id_tenant_id_index
+    on project_target (project_id, tenant_id);
 -- ----------------------------
 -- 9、知识产权表
 -- ----------------------------
@@ -452,10 +467,14 @@ create table intellectual_property
     milestone_id bigint null comment '大事记id',
     create_time datetime null comment '创建时间',
     update_time datetime null comment '更新时间',
-    create_by   varchar(100) default '' null comment '创建人',
-    update_by   varchar(100) default '' null comment '更新人',
-    deleted     tinyint      default 0 null comment '是否删除，2删除，0未删除'
+    create_by   bigint                       null comment '创建人',
+    update_by   bigint                       null comment '更新人',
+    deleted     tinyint     default 0        null comment '是否删除，2删除，0未删除',
+    tenant_id   varchar(20) default '000000' null comment '租户编号',
+    create_dept bigint                       null comment '创建部门'
 ) comment '知识产权表';
+create index intellectual_property_tenant_id_index
+    on intellectual_property (tenant_id);
 
 -- ----------------------------
 -- 9、知识产权和存储对象关联表
@@ -466,11 +485,12 @@ create table ip_oss
     id     bigint auto_increment comment 'id'
         primary key,
     ip_id  bigint not null comment '知识产权id',
-    oss_id bigint not null comment '存储对象id'
+    oss_id    bigint                       not null comment '存储对象id',
+    tenant_id varchar(20) default '000000' null comment '租户编号'
 ) comment '知识产权和存储对象关联表';
 
-create index ip_oss_ip_id_oss_id_index
-    on ip_oss (ip_id, oss_id);
+create index ip_oss_ip_id_oss_id_tenant_id_index
+    on ip_oss (ip_id, oss_id, tenant_id);
 -- ----------------------------
 -- 9、知识产权和用户关联表
 -- ----------------------------
@@ -480,11 +500,12 @@ create table ip_user
     id bigint auto_increment comment 'id'
         primary key,
     ip_id   bigint not null comment '知识产权id',
-    user_id bigint not null comment '成员id'
+    user_id   bigint                       not null comment '成员id',
+    tenant_id varchar(20) default '000000' null comment '租户编号'
 ) comment '知识产权和用户关联表';
 
-create index ip_user_ip_id_user_id_index
-    on ip_user (ip_id, user_id);
+create index ip_user_ip_id_user_id_tenant_id_index
+    on ip_user (ip_id, user_id, tenant_id);
 
 -- ----------------------------
 -- 10、项目余额表
@@ -496,6 +517,7 @@ create table project_balance
         primary key,
     funds_id                                 bigint                          not null comment '经费id',
     project_id                               bigint                          not null comment '项目id',
+    tenant_id varchar(20) default '000000' null comment '租户编号',
     total_funds_all_paid                     decimal(12, 6) default 0.000000 not null comment '项目经费总额_已支付',
     total_funds_all_unpaid                   decimal(12, 6) default 0.000000 not null comment '项目经费总额_未支付',
     total_funds_zj_paid                      decimal(12, 6) default 0.000000 not null comment '直接经费总额_已支付',
@@ -932,6 +954,8 @@ create table project_balance
         unique (project_id)
 )
     comment '项目余额表（单位：万元）';
+create index project_balance_tenant_id_index
+    on project_balance (tenant_id);
 -- ----------------------------
 -- 11、项目已支付余额表
 -- ----------------------------
@@ -941,6 +965,7 @@ create table project_balance_paid
         primary key,
     funds_id                               bigint                          not null comment '经费id',
     project_id                             bigint                          not null comment '项目id',
+    tenant_id varchar(20) default '000000' null comment '租户编号',
     total_funds_all_paid                   decimal(12, 6) default 0.000000 not null comment '项目经费总额_已支付',
     total_funds_zj_paid                    decimal(12, 6) default 0.000000 not null comment '直接经费总额_已支付',
     total_funds_jj_paid                    decimal(12, 6) default 0.000000 not null comment '间接经费总额_已支付',
@@ -1161,7 +1186,9 @@ create table project_balance_paid
     constraint project_balance_project_id_uindex
         unique (project_id)
 )
-    comment '项目余额表（单位：万元）';
+    comment '项目已支付余额表（单位：万元）';
+create index project_balance_paid_tenant_id_index
+    on project_balance_paid (tenant_id);
 -- ----------------------------
 -- 12、项目未支付余额表
 -- ----------------------------
@@ -1171,6 +1198,7 @@ create table project_balance_unpaid
         primary key,
     funds_id                                 bigint                          not null comment '经费id',
     project_id                               bigint                          not null comment '项目id',
+    tenant_id varchar(20) default '000000' null comment '租户编号',
     total_funds_all_unpaid                   decimal(12, 6) default 0.000000 not null comment '项目经费总额_未支付',
     total_funds_zj_unpaid                    decimal(12, 6) default 0.000000 not null comment '直接经费总额_未支付',
     total_funds_jj_unpaid                    decimal(12, 6) default 0.000000 not null comment '间接经费总额_未支付',
@@ -1391,7 +1419,9 @@ create table project_balance_unpaid
     constraint project_balance_project_id_uindex
         unique (project_id)
 )
-    comment '项目余额表（单位：万元）';
+    comment '项目未支付余额表（单位：万元）';
+create index project_balance_unpaid_tenant_id_index
+    on project_balance_unpaid (tenant_id);
 -- ----------------------------
 -- 12、用户信息表
 -- ----------------------------
@@ -1438,10 +1468,13 @@ create table project_funds_received
     received_date   date null comment '到账日期',
     create_time     datetime null comment '创建时间',
     update_time     datetime null comment '更新时间',
-    create_by       varchar(100) null comment '创建人',
-    update_by       varchar(100) null comment '更新人',
-    create_dept     bigint null comment '创建部门'
+    create_by   bigint                       null comment '创建人',
+    update_by   bigint                       null comment '更新人',
+    create_dept bigint                       null comment '创建部门',
+    tenant_id   varchar(20) default '000000' null comment '租户编号'
 ) comment '专项经费到账';
+create index project_funds_received_tenant_id_index
+    on project_funds_received (tenant_id);
 
 -- ----------------------------
 -- 插入-项目管理菜单数据

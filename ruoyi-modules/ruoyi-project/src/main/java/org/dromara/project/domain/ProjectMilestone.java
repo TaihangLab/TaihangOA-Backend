@@ -43,4 +43,9 @@ public class ProjectMilestone {
      */
     private LocalDate milestoneDate;
 
+    /**
+     * 租户编号
+     */
+    private String tenantId;
+
 }

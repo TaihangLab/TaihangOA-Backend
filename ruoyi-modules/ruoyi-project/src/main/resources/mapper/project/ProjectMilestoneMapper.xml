@@ -10,10 +10,11 @@
         <result property="milestoneTitle" column="milestone_title" jdbcType="VARCHAR"/>
         <result property="milestoneRemark" column="milestone_remark" jdbcType="VARCHAR"/>
         <result property="milestoneDate" column="milestone_date" jdbcType="DATE"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         milestone_id,project_id,milestone_title,
-        milestone_remark,milestone_date
+        milestone_remark,milestone_date,tenant_id
     </sql>
 </mapper>

@@ -48,6 +48,10 @@ public class ProjectTarget {
      * 完成时指标值/状态
      */
     private String endTarget;
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 
     @Override
     public int hashCode() {

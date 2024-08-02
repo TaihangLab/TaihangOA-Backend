@@ -1,6 +1,8 @@
 package org.dromara.project.domain.vo;
 
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
+import org.dromara.project.domain.ProjectFunds;
 
 import java.math.BigDecimal;
 
@@ -11,6 +13,7 @@ import java.math.BigDecimal;
  * @date 2023/12/11
  */
 @Data
+@AutoMapper(target = ProjectFunds.class)
 public class ProjectFundsVO {
     /**
      * 项目经费总额

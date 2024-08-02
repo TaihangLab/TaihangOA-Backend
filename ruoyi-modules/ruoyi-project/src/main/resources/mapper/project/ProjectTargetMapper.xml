@@ -10,10 +10,11 @@
         <result property="targetName" column="target_name" jdbcType="VARCHAR"/>
         <result property="midtermTarget" column="midterm_target" jdbcType="VARCHAR"/>
         <result property="endTarget" column="end_target" jdbcType="VARCHAR"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         target_id,project_id,target_name,
-        midterm_target,end_target
+        midterm_target,end_target,tenant_id
     </sql>
 </mapper>

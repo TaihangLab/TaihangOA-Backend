@@ -1110,4 +1110,8 @@ public class ProjectBalancePaid implements Serializable {
      */
     @PaidFieldDescription("专家咨询费_自筹_间接")
     private BigDecimal zjzxfZcJjPaid;
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 }

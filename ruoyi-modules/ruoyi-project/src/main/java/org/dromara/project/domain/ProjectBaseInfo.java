@@ -7,7 +7,7 @@ import org.dromara.common.core.enums.ConfirmationStatusEnum;
 import org.dromara.common.core.enums.ExistenceStateEnum;
 import org.dromara.common.core.enums.ProjectLevelEnum;
 import org.dromara.common.core.enums.ProjectStatusEnum;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
+import org.dromara.common.tenant.core.TenantEntity;
 
 import java.time.LocalDate;
 
@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = false)
 @TableName(value = "project_base_info")
 @Data
-public class ProjectBaseInfo extends BaseEntity {
+public class ProjectBaseInfo extends TenantEntity {
     private static final long serialVersionUID = 8954237796352061001L;
     /**
      * 项目id
@@ -156,10 +156,5 @@ public class ProjectBaseInfo extends BaseEntity {
     @TableLogic
     @TableField(select = false)
     private Integer deleted;
-
-    /**
-     * 租户Id
-     */
-    private String tenantId;
 
 }

@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.dromara.common.mybatis.core.domain.BaseEntity;
+import org.dromara.project.domain.ProjectFundsReceived;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@AutoMapper(target = ProjectFundsReceived.class, reverseConvertGenerate = false)
 public class ProjectFundsReceivedBo extends BaseEntity {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

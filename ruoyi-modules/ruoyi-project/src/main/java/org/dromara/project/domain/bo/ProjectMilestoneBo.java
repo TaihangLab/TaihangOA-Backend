@@ -1,6 +1,7 @@
 package org.dromara.project.domain.bo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -10,6 +11,7 @@ import org.dromara.common.core.validate.AddGroup;
 import org.dromara.common.core.validate.EditGroup;
 import org.dromara.common.core.xss.Xss;
 import org.dromara.common.mybatis.core.domain.BaseEntity;
+import org.dromara.project.domain.ProjectMilestone;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@AutoMapper(target = ProjectMilestone.class, reverseConvertGenerate = false)
 public class ProjectMilestoneBo extends BaseEntity {
 
     private static final long serialVersionUID = 8500261585170629082L;

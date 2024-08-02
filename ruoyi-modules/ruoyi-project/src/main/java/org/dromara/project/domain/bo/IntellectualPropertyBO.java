@@ -1,6 +1,7 @@
 package org.dromara.project.domain.bo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -9,6 +10,7 @@ import org.dromara.common.core.enums.IntellectualPropertyStatusEnum;
 import org.dromara.common.core.enums.IntellectualPropertyTypeEnum;
 import org.dromara.common.core.validate.AddGroup;
 import org.dromara.common.core.validate.EditGroup;
+import org.dromara.project.domain.IntellectualProperty;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
  * @date 2023/12/29
  */
 @Data
+@AutoMapper(target = IntellectualProperty.class, reverseConvertGenerate = false)
 public class IntellectualPropertyBO {
     /**
      * 知识产权id

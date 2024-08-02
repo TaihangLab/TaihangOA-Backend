@@ -1,8 +1,10 @@
 package org.dromara.project.domain.bo;
 
+import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.Data;
+import org.dromara.project.domain.ProjectFunds;
 
 import java.math.BigDecimal;
 
@@ -13,6 +15,7 @@ import java.math.BigDecimal;
  * @date 2023/12/15
  */
 @Data
+@AutoMapper(target = ProjectFunds.class, reverseConvertGenerate = false)
 public class ProjectFundsBO {
 
     /**

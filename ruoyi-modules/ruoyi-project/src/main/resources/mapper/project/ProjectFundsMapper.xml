@@ -7,6 +7,7 @@
     <resultMap id="ProjectFundsMapperResult" type="org.dromara.project.domain.ProjectFunds">
         <id property="fundsId" column="funds_id" jdbcType="BIGINT"/>
         <result property="projectId" column="project_id" jdbcType="BIGINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
         <result property="totalFundsAll" column="total_funds_all" jdbcType="DECIMAL"/>
         <result property="totalFundsZj" column="total_funds_zj" jdbcType="DECIMAL"/>
         <result property="totalFundsJj" column="total_funds_jj" jdbcType="DECIMAL"/>
@@ -235,7 +236,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        funds_id,project_id,total_funds_all,
+        funds_id,project_id,tenant_id,total_funds_all,
         total_funds_zj,total_funds_jj,total_funds_zx,
         total_funds_zx_dk,zctz_done,zxtz_done,
         zc_gspt,zx_gslc,sbf_zx,

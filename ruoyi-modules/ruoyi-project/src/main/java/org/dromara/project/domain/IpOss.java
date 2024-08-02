@@ -41,14 +41,16 @@ public class IpOss implements Serializable {
      */
     private Long ossId;
 
+    /**
+     * 租户编号
+     */
+    private String tenantId;
+
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(ipId).append(ossId).toHashCode();
     }
 
-    /**
-     * id
-     */
 
     @Override
     public boolean equals(Object o) {

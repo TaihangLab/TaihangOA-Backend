@@ -43,6 +43,11 @@ public class IpUser implements Serializable {
      */
     private Long ipId;
 
+    /**
+     * 租户编号
+     */
+    private String tenantId;
+
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(ipId).append(userId).toHashCode();

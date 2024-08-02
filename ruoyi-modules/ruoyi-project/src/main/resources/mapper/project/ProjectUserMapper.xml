@@ -8,10 +8,11 @@
         <id property="projectId" column="project_id" jdbcType="BIGINT"/>
         <id property="userId" column="user_id" jdbcType="BIGINT"/>
         <id property="projectUserRole" column="project_user_role" jdbcType="VARCHAR"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        project_id,user_id,project_user_role
+        project_id,user_id,project_user_role,tenant_id
     </sql>
     <!-- 获取历史所有项目级别和对应的数量 -->
     <select id="getProjectLevelCountByUserId" resultType="map" parameterType="Long">

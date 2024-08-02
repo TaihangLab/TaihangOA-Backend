@@ -10,10 +10,11 @@
         <result property="stageStartDate" column="stage_start_date" jdbcType="DATE"/>
         <result property="stageEndDate" column="stage_end_date" jdbcType="DATE"/>
         <result property="stageTask" column="stage_task" jdbcType="VARCHAR"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         stage_id,project_id,stage_start_date,
-        stage_end_date,stage_task
+        stage_end_date,stage_task,tenant_id
     </sql>
 </mapper>

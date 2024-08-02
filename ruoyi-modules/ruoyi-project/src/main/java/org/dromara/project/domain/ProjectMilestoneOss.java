@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
- * 项目大事纪文件oss关联 project_milestone_oss
+ * 项目大事纪文件oss关联表
  *
  * @author bailingnan
  * @date 2024/02/06
@@ -24,4 +24,9 @@ public class ProjectMilestoneOss {
      */
 
     private Long ossId;
+
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 }

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.dromara.common.core.enums.IntellectualPropertyStatusEnum;
 import org.dromara.common.core.enums.IntellectualPropertyTypeEnum;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
+import org.dromara.common.tenant.core.TenantEntity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -19,7 +19,7 @@ import java.time.LocalDate;
  */
 @TableName(value = "intellectual_property")
 @Data
-public class IntellectualProperty extends BaseEntity implements Serializable {
+public class IntellectualProperty extends TenantEntity implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**

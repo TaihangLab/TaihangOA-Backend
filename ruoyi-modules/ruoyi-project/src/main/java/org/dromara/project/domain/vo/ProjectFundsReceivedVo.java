@@ -8,7 +8,9 @@ package org.dromara.project.domain.vo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
+import org.dromara.project.domain.ProjectFundsReceived;
 import org.dromara.system.domain.SysOss;
 
 import java.math.BigDecimal;
@@ -16,6 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@AutoMapper(target = ProjectFundsReceived.class)
 public class ProjectFundsReceivedVo {
     /**
      * 主键

@@ -7,7 +7,8 @@ import lombok.Data;
 import org.dromara.common.core.enums.ProjectMilestoneTypeEnum;
 
 /**
- * @Author bailingnan
+ * 大事记分类表
+ * @author bailingnan
  * @date 2024/3/25 14:31
  */
 @TableName("project_milestone_type")
@@ -29,4 +30,8 @@ public class ProjectMilestoneType {
      * 大事记分类
      */
     private ProjectMilestoneTypeEnum milestoneType;
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 }

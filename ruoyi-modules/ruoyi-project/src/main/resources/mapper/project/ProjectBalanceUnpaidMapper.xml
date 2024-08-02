@@ -8,6 +8,7 @@
         <id property="unpaidId" column="unpaid_id" jdbcType="BIGINT"/>
         <result property="fundsId" column="funds_id" jdbcType="BIGINT"/>
         <result property="projectId" column="project_id" jdbcType="BIGINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
         <result property="totalFundsAllUnpaid" column="total_funds_all_unpaid" jdbcType="DECIMAL"/>
         <result property="totalFundsZjUnpaid" column="total_funds_zj_unpaid" jdbcType="DECIMAL"/>
         <result property="totalFundsJjUnpaid" column="total_funds_jj_unpaid" jdbcType="DECIMAL"/>
@@ -231,7 +232,6 @@
         <result property="chlfJjUnpaid" column="chlf_jj_unpaid" jdbcType="DECIMAL"/>
         <result property="chlfZxJjUnpaid" column="chlf_zx_jj_unpaid" jdbcType="DECIMAL"/>
         <result property="chlfZcJjUnpaid" column="chlf_zc_jj_unpaid" jdbcType="DECIMAL"/>
-        <result property="hyhwfJjPaid" column="hyhwf_jj_paid" jdbcType="DECIMAL"/>
         <result property="hyhwfJjUnpaid" column="hyhwf_jj_unpaid" jdbcType="DECIMAL"/>
         <result property="hyhwfZxJjUnpaid" column="hyhwf_zx_jj_unpaid" jdbcType="DECIMAL"/>
         <result property="hyhwfZcJjUnpaid" column="hyhwf_zc_jj_unpaid" jdbcType="DECIMAL"/>
@@ -313,6 +313,6 @@
         clsyf_zx_jj_unpaid,clsyf_zc_jj_unpaid,chlf_jj_unpaid,
         chlf_zx_jj_unpaid,chlf_zc_jj_unpaid,hyhwf_jj_paid,
         hyhwf_jj_unpaid,hyhwf_zx_jj_unpaid,hyhwf_zc_jj_unpaid,
-        zjzxf_jj_unpaid,zjzxf_zx_jj_unpaid,zjzxf_zc_jj_unpaid
+        zjzxf_jj_unpaid,zjzxf_zx_jj_unpaid,zjzxf_zc_jj_unpaid,tenant_id
     </sql>
 </mapper>

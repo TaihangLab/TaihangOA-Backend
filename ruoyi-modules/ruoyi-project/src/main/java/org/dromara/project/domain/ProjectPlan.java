@@ -51,6 +51,11 @@ public class ProjectPlan implements Serializable {
      */
     private String stageTask;
 
+    /**
+     * 租户编号
+     */
+    private String tenantId;
+
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(projectId).append(stageStartDate).append(stageEndDate).append(stageTask)

@@ -1,7 +1,9 @@
 package org.dromara.project.domain.vo;
 
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import org.dromara.common.core.enums.*;
+import org.dromara.project.domain.ProjectExpenditure;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,6 +16,7 @@ import java.util.Date;
  * @date 2024/03/29
  */
 @Data
+@AutoMapper(target = ProjectExpenditure.class)
 public class ProjectExpenditureVO {
     /**
      * 支出id

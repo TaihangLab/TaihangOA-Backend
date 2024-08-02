@@ -1,12 +1,14 @@
 package org.dromara.project.domain.bo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.dromara.common.core.constant.DateConstants;
 import org.dromara.common.core.enums.*;
 import org.dromara.common.core.validate.EditGroup;
 import org.dromara.common.core.validate.QueryGroup;
+import org.dromara.project.domain.ProjectExpenditure;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,6 +21,7 @@ import java.util.List;
  * @date 2024/03/05
  */
 @Data
+@AutoMapper(target = ProjectExpenditure.class, reverseConvertGenerate = false)
 public class ProjectExpenditureBO {
     /**
      * 支出id

@@ -3,7 +3,7 @@ package org.dromara.project.domain;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import org.dromara.common.core.enums.*;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
+import org.dromara.common.tenant.core.TenantEntity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
  */
 @TableName(value = "project_expenditure")
 @Data
-public class ProjectExpenditure extends BaseEntity implements Serializable {
+public class ProjectExpenditure extends TenantEntity implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**

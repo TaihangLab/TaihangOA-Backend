@@ -40,6 +40,11 @@ public class ProjectUser {
      */
     private ProjectUserRoleEnum projectUserRole;
 
+    /**
+     * 租户编号
+     */
+    private String tenantId;
+
     @Override
     public int hashCode() {
         return new HashCodeBuilder().append(projectId).append(userId).append(projectUserRole).toHashCode();

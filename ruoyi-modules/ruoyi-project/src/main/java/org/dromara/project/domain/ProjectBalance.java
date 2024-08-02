@@ -1752,4 +1752,8 @@ public class ProjectBalance implements Serializable {
      * 专家咨询费_自筹_间接_未支付
      */
     private BigDecimal zjzxfZcJjUnpaid;
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 }
