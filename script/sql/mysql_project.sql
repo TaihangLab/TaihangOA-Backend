@@ -959,6 +959,7 @@ create index project_balance_tenant_id_index
 -- ----------------------------
 -- 11、项目已支付余额表
 -- ----------------------------
+DROP TABLE IF EXISTS `project_balance_paid`;
 create table project_balance_paid
 (
     paid_id                                bigint auto_increment comment '已支付id'
@@ -1192,6 +1193,7 @@ create index project_balance_paid_tenant_id_index
 -- ----------------------------
 -- 12、项目未支付余额表
 -- ----------------------------
+DROP TABLE IF EXISTS `project_balance_unpaid`;
 create table project_balance_unpaid
 (
     unpaid_id                                bigint auto_increment comment '未支付id'
@@ -1426,6 +1428,7 @@ create index project_balance_unpaid_tenant_id_index
 -- 12、用户信息表
 -- ----------------------------
 -- auto-generated definition
+DROP TABLE IF EXISTS `sys_user`;
 create table sys_user
 (
     user_id     bigint      not null comment '用户ID'
@@ -1456,6 +1459,7 @@ create table sys_user
 -- ----------------------------
 -- 13、专项经费到账表
 -- ----------------------------
+DROP TABLE IF EXISTS `project_funds_received`;
 create table project_funds_received
 (
     received_id     bigint auto_increment comment '主键'
