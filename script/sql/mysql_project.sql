@@ -1428,7 +1428,6 @@ create index project_balance_unpaid_tenant_id_index
 -- 12、用户信息表
 -- ----------------------------
 -- auto-generated definition
-DROP TABLE IF EXISTS `sys_user`;
 create table sys_user
 (
     user_id     bigint      not null comment '用户ID'
