@@ -300,6 +300,15 @@ public class SysUserController extends BaseController {
     }
 
     /**
+     * 获取部门和人员树列表
+     */
+    @SaCheckPermission("system:user:list")
+    @GetMapping("/userTree")
+    public R<List<Tree<Long>>> userTree(SysDeptBo dept) {
+        return R.ok(deptService.selectUserTreeList(dept));
+    }
+
+    /**
      * 查询全部用户列表，用于工作流
      */
     @SaCheckLogin

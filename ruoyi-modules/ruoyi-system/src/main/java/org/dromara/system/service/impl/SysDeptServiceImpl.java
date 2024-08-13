@@ -25,10 +25,12 @@ import org.dromara.system.domain.SysRole;
 import org.dromara.system.domain.SysUser;
 import org.dromara.system.domain.bo.SysDeptBo;
 import org.dromara.system.domain.vo.SysDeptVo;
+import org.dromara.system.domain.vo.SysUserVo;
 import org.dromara.system.mapper.SysDeptMapper;
 import org.dromara.system.mapper.SysRoleMapper;
 import org.dromara.system.mapper.SysUserMapper;
 import org.dromara.system.service.ISysDeptService;
+import org.dromara.system.service.ISysUserService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -48,6 +50,7 @@ import java.util.stream.Collectors;
 @Service
 public class SysDeptServiceImpl implements ISysDeptService, DeptService {
 
+    private final ISysUserService userService;
     private final SysDeptMapper baseMapper;
     private final SysRoleMapper roleMapper;
     private final SysUserMapper userMapper;
@@ -77,6 +80,40 @@ public class SysDeptServiceImpl implements ISysDeptService, DeptService {
         LambdaQueryWrapper<SysDept> lqw = buildQueryWrapper(bo);
         List<SysDeptVo> depts = baseMapper.selectDeptList(lqw);
         return buildDeptTreeSelect(depts);
+    }
+
+    @Override
+    public List<Tree<Long>> selectUserTreeList(SysDeptBo dept) {
+        // 获取部门树列表
+        List<Tree<Long>> deptTree = selectDeptTreeList(dept);
+        // 遍历部门树，获取最细分部门下的用户列表
+        deptTree.forEach(this::populateUsers);
+        return deptTree;
+    }
+
+    /**
+     * 递归地将用户列表嵌入到最细分的部门节点中
+     *
+     * @param tree 当前部门树节点
+     */
+    private void populateUsers(Tree<Long> tree) {
+        // 检查是否为最细分部门
+
+        if (tree.getChildren() == null || tree.getChildren().isEmpty()) {
+            // 将用户列表加入到children中
+            tree.setChildren(buildUserTreeSelect(tree.getId()));
+        } else {
+            // 递归处理子部门
+            tree.getChildren().forEach(this::populateUsers);
+            tree.getChildren().addAll(buildUserTreeSelect(tree.getId()));
+        }
+    }
+
+    private List<Tree<Long>> buildUserTreeSelect(Long id) {
+        // 获取该部门下的用户列表
+        List<SysUserVo> users = userService.selectUserListByDept(id);
+        return users.stream().map(user -> new Tree<Long>().setId(user.getUserId()).setName(user.getNickName()))
+            .collect(Collectors.toList());
     }
 
     private LambdaQueryWrapper<SysDept> buildQueryWrapper(SysDeptBo bo) {
