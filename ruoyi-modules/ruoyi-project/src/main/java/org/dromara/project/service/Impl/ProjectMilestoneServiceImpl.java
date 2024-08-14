@@ -22,6 +22,7 @@ import org.dromara.project.mapper.ProjectMilestoneMapper;
 import org.dromara.project.mapper.ProjectMilestoneOssMapper;
 import org.dromara.project.mapper.ProjectMilestoneTypeMapper;
 import org.dromara.project.service.IntellectualPropertyService;
+import org.dromara.project.service.ProjectBaseInfoService;
 import org.dromara.project.service.ProjectMilestoneService;
 import org.dromara.system.domain.SysOss;
 import org.dromara.system.domain.vo.SysOssVo;
@@ -52,6 +53,8 @@ public class ProjectMilestoneServiceImpl implements ProjectMilestoneService {
     private final ProjectMilestoneTypeMapper projectMilestoneTypeMapper;
 
     private final IntellectualPropertyService intellectualPropertyService;
+
+    private final ProjectBaseInfoService projectBaseInfoService;
 
     /**
      * 新增单个项目大事记
@@ -362,6 +365,8 @@ public class ProjectMilestoneServiceImpl implements ProjectMilestoneService {
 
         // 构建大事记 ID 到名称的映射
         Map<Long, String> milestoneIdToNameMap = buildMilestoneIdToNameMap(milestones);
+        //构建大事记id和项目名称的映射
+        Map<Long, String> milestoneIdToAssignedSubjectNameMap = buildMapMilestoneIdToAssignedSubjectName(milestones);
 
         // 获取与大事记相关的 OSS ID 和对应的大事记 ID
         List<ProjectMilestoneOss> milestoneOssList = fetchMilestoneOssList(milestones);
@@ -369,19 +374,26 @@ public class ProjectMilestoneServiceImpl implements ProjectMilestoneService {
         // 构建 OSS ID 到大事记名称的映射
         Map<Long, String> ossIdToMilestoneNameMap =
             buildOssIdToMilestoneNameMap(milestoneOssList, milestoneIdToNameMap);
-        if (ossIdToMilestoneNameMap.isEmpty()) {
-            return TableDataInfo.build(new Page<>());
-        }
+        //构建 OSS ID 到项目名称的映射
+        Map<Long, String> ossIdToAssignedSubjectNameMap =
+            buildOssIdToAssignedSubjectNameMap(milestoneOssList, milestoneIdToAssignedSubjectNameMap);
 
         // 分页查询 OSS 对象
         Page<SysOssVo> voPage = fetchOssPage(ossIdToMilestoneNameMap, pageQuery);
 
         // 填充 SysOssVo 列表
-        List<SysOssVo> ossVoList = fillSysOssVoList(voPage.getRecords(), ossIdToMilestoneNameMap);
+        List<SysOssVo> ossVoList =
+            fillSysOssVoList(voPage.getRecords(), ossIdToMilestoneNameMap, ossIdToAssignedSubjectNameMap);
 
         // 返回结果
         return TableDataInfo.build(
             new Page<SysOssVo>(voPage.getCurrent(), voPage.getSize(), voPage.getTotal()).setRecords(ossVoList));
+    }
+
+    private Map<Long, String> buildMapMilestoneIdToAssignedSubjectName(List<ProjectMilestone> milestoneList) {
+        return milestoneList.stream().collect(Collectors.toMap(ProjectMilestone::getMilestoneId,
+            milestone -> projectBaseInfoService.selectProjectBaseInfoById(milestone.getProjectId())
+                .getAssignedSubjectName()));
     }
 
     /**
@@ -412,6 +424,14 @@ public class ProjectMilestoneServiceImpl implements ProjectMilestoneService {
         return projectMilestoneTypeMapper.selectList(
                 new LambdaQueryWrapper<ProjectMilestoneType>().in(ProjectMilestoneType::getMilestoneId, milestoneIds))
             .stream().map(ProjectMilestoneType::getMilestoneType).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
+    private Map<Long, String> buildOssIdToAssignedSubjectNameMap(List<ProjectMilestoneOss> milestoneOssList,
+        Map<Long, String> milestoneIdToAssignedSubjectNameMap) {
+        return milestoneOssList.stream().collect(Collectors.toMap(ProjectMilestoneOss::getOssId, o -> {
+            Long milestoneId = o.getMilestoneId();
+            return milestoneIdToAssignedSubjectNameMap.getOrDefault(milestoneId, ""); // 检查键是否存在，如果不存在返回空字符串
+        }, (existing, replacement) -> existing));
     }
 
     // 查询关联的大事记信息
@@ -455,10 +475,13 @@ public class ProjectMilestoneServiceImpl implements ProjectMilestoneService {
     }
 
     // 填充 SysOssVo 列表
-    private List<SysOssVo> fillSysOssVoList(List<SysOssVo> sysOssVoList, Map<Long, String> ossIdToMilestoneNameMap) {
+    private List<SysOssVo> fillSysOssVoList(List<SysOssVo> sysOssVoList, Map<Long, String> ossIdToMilestoneNameMap,
+        Map<Long, String> ossIdToAssignedSubjectNameMap) {
         return sysOssVoList.stream().map(sysOssVo -> {
             String milestoneName = ossIdToMilestoneNameMap.get(sysOssVo.getOssId());
             sysOssVo.setMilestoneTitle(milestoneName);
+            String assignedSubjectName = ossIdToAssignedSubjectNameMap.get(sysOssVo.getOssId());
+            sysOssVo.setAssignedSubjectName(assignedSubjectName);
             return sysOssVo;
         }).collect(Collectors.toList());
     }

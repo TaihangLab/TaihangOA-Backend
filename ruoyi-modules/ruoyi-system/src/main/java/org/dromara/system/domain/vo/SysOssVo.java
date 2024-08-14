@@ -73,4 +73,9 @@ public class SysOssVo implements Serializable {
      */
     private String milestoneTitle;
 
+    /**
+     * 承担课题名称
+     */
+    private String assignedSubjectName;
+
 }
