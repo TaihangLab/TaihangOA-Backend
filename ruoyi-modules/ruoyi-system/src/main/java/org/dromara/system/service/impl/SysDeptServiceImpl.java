@@ -30,7 +30,6 @@ import org.dromara.system.mapper.SysDeptMapper;
 import org.dromara.system.mapper.SysRoleMapper;
 import org.dromara.system.mapper.SysUserMapper;
 import org.dromara.system.service.ISysDeptService;
-import org.dromara.system.service.ISysUserService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -50,7 +49,6 @@ import java.util.stream.Collectors;
 @Service
 public class SysDeptServiceImpl implements ISysDeptService, DeptService {
 
-    private final ISysUserService userService;
     private final SysDeptMapper baseMapper;
     private final SysRoleMapper roleMapper;
     private final SysUserMapper userMapper;
@@ -111,9 +109,16 @@ public class SysDeptServiceImpl implements ISysDeptService, DeptService {
 
     private List<Tree<Long>> buildUserTreeSelect(Long id) {
         // 获取该部门下的用户列表
-        List<SysUserVo> users = userService.selectUserListByDept(id);
+        List<SysUserVo> users = selectUserListByDept(id);
         return users.stream().map(user -> new Tree<Long>().setId(user.getUserId()).setName(user.getNickName()))
             .collect(Collectors.toList());
+    }
+
+    private List<SysUserVo> selectUserListByDept(Long deptId) {
+        LambdaQueryWrapper<SysUser> lqw = Wrappers.lambdaQuery();
+        lqw.eq(SysUser::getDeptId, deptId);
+        lqw.orderByAsc(SysUser::getUserId);
+        return userMapper.selectVoList(lqw);
     }
 
     private LambdaQueryWrapper<SysDept> buildQueryWrapper(SysDeptBo bo) {
@@ -178,6 +183,43 @@ public class SysDeptServiceImpl implements ISysDeptService, DeptService {
             .select(SysDept::getDeptName).eq(SysDept::getDeptId, dept.getParentId()));
         dept.setParentName(ObjectUtil.isNotNull(parentDept) ? parentDept.getDeptName() : null);
         return dept;
+    }
+
+    @Override
+    public String selectCompanyNameById(Long deptId) {
+        SysDeptVo sysDeptVo = selectDeptById(deptId);
+        if (ObjectUtil.isNull(sysDeptVo)) {
+            return "";
+        }
+        String ancestors = sysDeptVo.getAncestors();
+        if (StringUtils.isBlank(ancestors)) {
+            return "";
+        }
+        String[] companyIdArray = StringUtils.split(ancestors, StringUtils.SEPARATOR);
+        if (companyIdArray.length == 1) {
+            return selectDeptById(deptId).getDeptName();
+        }
+        if (companyIdArray.length == 2) {
+            return selectDeptById(Convert.toLong(companyIdArray[1])).getDeptName();
+        }
+        return selectDeptById(Convert.toLong(companyIdArray[2])).getDeptName();
+    }
+
+    @Override
+    public String selectDeptPathById(Long deptId) {
+        SysDeptVo sysDeptVo = selectDeptById(deptId);
+        if (ObjectUtil.isNull(sysDeptVo)) {
+            return "";
+        }
+        String ancestors = sysDeptVo.getAncestors();
+        if (StringUtils.isBlank(ancestors)) {
+            return "";
+        }
+        ancestors = ancestors + StringUtils.SEPARATOR + deptId;
+        String[] deptIdArray = StringUtils.split(ancestors, StringUtils.SEPARATOR);
+        StringBuilder deptPath = new StringBuilder();
+        return Arrays.stream(deptIdArray).map(id -> selectDeptById(Convert.toLong(id))).filter(ObjectUtil::isNotNull)
+            .map(SysDeptVo::getDeptName).collect(Collectors.joining(StringUtils.SLASH));
     }
 
     @Override

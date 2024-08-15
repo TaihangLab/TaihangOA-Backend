@@ -22,6 +22,7 @@ import org.dromara.system.domain.SysDept;
 import org.dromara.system.domain.SysUser;
 import org.dromara.system.mapper.SysDeptMapper;
 import org.dromara.system.mapper.SysUserMapper;
+import org.dromara.system.service.ISysDeptService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,12 +50,17 @@ public class ProjectUserServiceImpl implements ProjectUserService {
 
     private final ProjectBaseInfoMapper projectBaseInfoMapper;
 
+    private final ISysDeptService deptService;
+
     // 创建 ProjectUserVo 对象
     private ProjectUserVo createProjectUserVo(SysUser user) {
         ProjectUserVo projectUserVo = new ProjectUserVo();
         BeanUtil.copyProperties(user, projectUserVo);
         setProjectLevelCount(projectUserVo, user.getUserId(), false);
         setProjectLevelCount(projectUserVo, user.getUserId(), true);
+        projectUserVo.setDeptName(deptService.selectDeptById(user.getDeptId()).getDeptName());
+        projectUserVo.setCompanyName(deptService.selectCompanyNameById(user.getDeptId()));
+        projectUserVo.setDeptPath(deptService.selectDeptPathById(user.getDeptId()));
         return projectUserVo;
     }
 

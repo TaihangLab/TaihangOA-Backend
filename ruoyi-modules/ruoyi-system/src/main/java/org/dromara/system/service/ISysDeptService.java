@@ -63,6 +63,24 @@ public interface ISysDeptService {
     SysDeptVo selectDeptById(Long deptId);
 
     /**
+     * 根据部门id查询公司名称
+     *
+     * @param deptId
+     *
+     * @return {@link String }
+     */
+    String selectCompanyNameById(Long deptId);
+
+    /**
+     * 根据部门id查询工作路径
+     *
+     * @param deptId
+     *
+     * @return {@link String }
+     */
+    String selectDeptPathById(Long deptId);
+
+    /**
      * 通过部门ID串查询部门
      *
      * @param deptIds 部门id串
