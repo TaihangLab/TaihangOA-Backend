@@ -31,6 +31,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -208,5 +209,13 @@ public class ProjectFundsController {
     public TableDataInfo<ProjectExpenditureVO> getProjectExpenditureListByProId(
         @RequestBody @Validated(QueryGroup.class) ProjectExpenditureBO projectExpenditureBO, PageQuery pageQuery) {
         return projectExpenditureService.getProjectExpenditureByProId(projectExpenditureBO, pageQuery);
+    }
+
+    /**
+     * 获取导入模板
+     */
+    @PostMapping("/importTemplate")
+    public void importTemplate(HttpServletResponse response) {
+        ExcelUtil.exportExcel(new ArrayList<>(), "经费支出", ProjectExpenditureImportVO.class, response);
     }
 }
