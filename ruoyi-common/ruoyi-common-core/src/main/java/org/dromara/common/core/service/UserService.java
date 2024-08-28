@@ -67,5 +67,21 @@ public interface UserService {
      */
     List<Long> selectUserIdsByRoleIds(List<Long> roleIds);
 
+    /**
+     * 通过角色ID查询用户
+     *
+     * @param roleIds 角色ids
+     * @return 用户
+     */
+    List<UserDTO> selectUsersByRoleIds(List<Long> roleIds);
+
+    /**
+     * 通过部门ID查询用户
+     *
+     * @param deptIds 部门ids
+     * @return 用户
+     */
+    List<UserDTO> selectUsersByDeptIds(List<Long> deptIds);
+
     void updateUserAvatarIP(String oldEndPoint, String newEndPoint);
 }

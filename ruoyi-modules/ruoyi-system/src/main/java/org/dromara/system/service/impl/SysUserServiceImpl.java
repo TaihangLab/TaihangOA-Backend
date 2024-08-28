@@ -28,10 +28,7 @@ import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.common.mybatis.helper.DataBaseHelper;
 import org.dromara.common.satoken.utils.LoginHelper;
-import org.dromara.system.domain.SysDept;
-import org.dromara.system.domain.SysUser;
-import org.dromara.system.domain.SysUserPost;
-import org.dromara.system.domain.SysUserRole;
+import org.dromara.system.domain.*;
 import org.dromara.system.domain.bo.SysUserBo;
 import org.dromara.system.domain.vo.SysPostVo;
 import org.dromara.system.domain.vo.SysRoleVo;
@@ -476,17 +473,14 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
      */
     private void insertUserRole(Long userId, Long[] roleIds, boolean clear) {
         if (ArrayUtil.isNotEmpty(roleIds)) {
-            // 判断是否具有此角色的操作权限
-            List<SysRoleVo> roles = roleMapper.selectRoleList(new LambdaQueryWrapper<>());
-            if (CollUtil.isEmpty(roles)) {
-                throw new ServiceException("没有权限访问角色的数据");
-            }
-            List<Long> roleList = StreamUtils.toList(roles, SysRoleVo::getRoleId);
+            List<Long> roleList = new ArrayList<>(List.of(roleIds));
             if (!LoginHelper.isSuperAdmin(userId)) {
                 roleList.remove(UserConstants.SUPER_ADMIN_ID);
             }
-            List<Long> canDoRoleList = StreamUtils.filter(List.of(roleIds), roleList::contains);
-            if (CollUtil.isEmpty(canDoRoleList)) {
+            // 判断是否具有此角色的操作权限
+            List<SysRoleVo> roles = roleMapper.selectRoleList(
+                new QueryWrapper<SysRole>().in("r.role_id", roleList));
+            if (CollUtil.isEmpty(roles)) {
                 throw new ServiceException("没有权限访问角色的数据");
             }
             if (clear) {
@@ -494,7 +488,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
                 userRoleMapper.delete(new LambdaQueryWrapper<SysUserRole>().eq(SysUserRole::getUserId, userId));
             }
             // 新增用户与角色管理
-            List<SysUserRole> list = StreamUtils.toList(canDoRoleList, roleId -> {
+            List<SysUserRole> list = StreamUtils.toList(roleList, roleId -> {
                 SysUserRole ur = new SysUserRole();
                 ur.setUserId(userId);
                 ur.setRoleId(roleId);
@@ -643,7 +637,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
             return List.of();
         }
         List<SysUserVo> list = baseMapper.selectVoList(new LambdaQueryWrapper<SysUser>()
-            .select(SysUser::getUserId, SysUser::getUserName, SysUser::getNickName)
+            .select(SysUser::getUserId, SysUser::getUserName, SysUser::getNickName, SysUser::getEmail, SysUser::getPhonenumber)
             .eq(SysUser::getStatus, UserConstants.USER_NORMAL)
             .in(CollUtil.isNotEmpty(userIds), SysUser::getUserId, userIds));
         return BeanUtil.copyToList(list, UserDTO.class);
@@ -714,5 +708,27 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
             diplomaToUserNumMap.put(diplomaType.getDescription(), size);
         }
         return diplomaToUserNumMap;
+    }
+    @Override
+    public List<UserDTO> selectUsersByRoleIds(List<Long> roleIds) {
+        if (CollUtil.isEmpty(roleIds)) {
+            return List.of();
+        }
+        List<SysUserRole> userRoles = userRoleMapper.selectList(
+            new LambdaQueryWrapper<SysUserRole>().in(SysUserRole::getRoleId, roleIds));
+        List<Long> userIds = StreamUtils.toList(userRoles, SysUserRole::getUserId);
+        return selectListByIds(userIds);
+    }
+
+    @Override
+    public List<UserDTO> selectUsersByDeptIds(List<Long> deptIds) {
+        if (CollUtil.isEmpty(deptIds)) {
+            return List.of();
+        }
+        List<SysUserVo> list = baseMapper.selectVoList(new LambdaQueryWrapper<SysUser>()
+            .select(SysUser::getUserId, SysUser::getUserName, SysUser::getNickName, SysUser::getEmail, SysUser::getPhonenumber)
+            .eq(SysUser::getStatus, UserConstants.USER_NORMAL)
+            .in(CollUtil.isNotEmpty(deptIds), SysUser::getDeptId, deptIds));
+        return BeanUtil.copyToList(list, UserDTO.class);
     }
 }
