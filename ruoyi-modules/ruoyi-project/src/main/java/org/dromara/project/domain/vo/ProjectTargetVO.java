@@ -14,6 +14,15 @@ import org.dromara.project.domain.ProjectTarget;
 @AutoMapper(target = ProjectTarget.class)
 public class ProjectTargetVO {
     /**
+     * 指标ID
+     */
+    private Long targetId;
+
+    /**
+     * 项目ID
+     */
+    private Long projectId;
+    /**
      * 指标名称
      */
     private String targetName;

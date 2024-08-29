@@ -2,12 +2,16 @@ package org.dromara.project.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.dromara.common.mybatis.core.page.PageQuery;
+import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.project.domain.ProjectTarget;
 import org.dromara.project.domain.bo.ProjectTargetBO;
 import org.dromara.project.domain.vo.ProjectTargetVO;
 import org.dromara.project.mapper.ProjectTargetMapper;
+import org.dromara.project.mapper.ProjectTargetProgressMapper;
 import org.dromara.project.service.ProjectTargetService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +31,8 @@ import java.util.stream.Collectors;
 public class ProjectTargetServiceImpl implements ProjectTargetService {
 
     private final ProjectTargetMapper projectTargetMapper;
+
+    private final ProjectTargetProgressMapper projectTargetProgressMapper;
 
     /**
      * 新增多个项目指标
@@ -72,6 +78,20 @@ public class ProjectTargetServiceImpl implements ProjectTargetService {
     public List<ProjectTargetVO> selectTargetListByProjectId(Long projectId) {
         return projectTargetMapper.selectVoList(
             new LambdaQueryWrapper<ProjectTarget>().eq(ProjectTarget::getProjectId, projectId));
+    }
+
+    @Override
+    public TableDataInfo<ProjectTargetVO> selectTargetList(ProjectTargetBO projectTargetBO, PageQuery pageQuery) {
+        if (projectTargetBO == null) {
+            throw new IllegalArgumentException("projectTargetBO cannot be null");
+        }
+        Long projectId = projectTargetBO.getProjectId();
+        LambdaQueryWrapper<ProjectTarget> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(projectId != null, ProjectTarget::getProjectId, projectId);
+        queryWrapper.like(projectTargetBO.getTargetName() != null, ProjectTarget::getTargetName,
+            projectTargetBO.getTargetName());
+        Page<ProjectTargetVO> result = projectTargetMapper.selectVoPage(pageQuery.build(), queryWrapper);
+        return TableDataInfo.build(result);
     }
 
     /**

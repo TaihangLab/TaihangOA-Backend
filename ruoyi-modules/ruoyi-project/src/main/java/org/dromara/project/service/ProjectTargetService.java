@@ -1,5 +1,7 @@
 package org.dromara.project.service;
 
+import org.dromara.common.mybatis.core.page.PageQuery;
+import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.project.domain.ProjectTarget;
 import org.dromara.project.domain.bo.ProjectTargetBO;
 import org.dromara.project.domain.vo.ProjectTargetVO;
@@ -39,6 +41,8 @@ public interface ProjectTargetService {
      * @return {@link List}<{@link ProjectTargetVO}>
      */
     List<ProjectTargetVO> selectTargetListByProjectId(Long projectId);
+
+    TableDataInfo<ProjectTargetVO> selectTargetList(ProjectTargetBO projectTargetBO, PageQuery pageQuery);
 
     /**
      * 根据项目id删除项目指标

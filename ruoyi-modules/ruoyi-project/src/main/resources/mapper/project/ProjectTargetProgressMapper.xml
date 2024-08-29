@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.project.mapper.ProjectTargetProgressMapper">
+
+    <resultMap id="ProjectTargetProgressResult" type="org.dromara.project.domain.ProjectTargetProgress">
+        <id property="progressId" column="progress_id" jdbcType="BIGINT"/>
+        <result property="targetId" column="target_id" jdbcType="BIGINT"/>
+        <result property="completionStatus" column="completion_status" jdbcType="VARCHAR"/>
+        <result property="detailedDescription" column="detailed_description" jdbcType="VARCHAR"/>
+        <result property="completionTime" column="completion_time" jdbcType="DATE"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="BIGINT"/>
+        <result property="updateBy" column="update_by" jdbcType="BIGINT"/>
+        <result property="deleted" column="deleted" jdbcType="TINYINT"/>
+        <result property="createDept" column="create_dept" jdbcType="BIGINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        progress_id
+        ,target_id,completion_status,
+        detailed_description,completion_time,create_time,
+        update_time,create_by,update_by,
+        deleted,create_dept,tenant_id
+    </sql>
+</mapper>
