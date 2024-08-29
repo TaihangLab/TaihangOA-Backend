@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.dromara.common.core.constant.DateConstants;
 import org.dromara.common.core.enums.ConfirmationStatusEnum;
 import org.dromara.common.core.enums.ExistenceStateEnum;
@@ -12,6 +13,7 @@ import org.dromara.common.core.enums.ProjectStatusEnum;
 import org.dromara.common.mybatis.core.domain.BaseEntity;
 import org.dromara.project.domain.ProjectBaseInfo;
 
+import java.io.Serial;
 import java.time.LocalDate;
 
 /**
@@ -20,9 +22,11 @@ import java.time.LocalDate;
  * @author bailingnan
  * @date 2023/12/14
  */
+@EqualsAndHashCode(callSuper = false)
 @Data
 @AutoMapper(target = ProjectBaseInfo.class)
 public class ProjectInfoVO extends BaseEntity {
+    @Serial
     private static final long serialVersionUID = 4817976403481927188L;
     /**
      * 项目id
@@ -100,13 +104,13 @@ public class ProjectInfoVO extends BaseEntity {
     /**
      * 项目简介
      */
-    @Size(max = 1000, message = "项目简介长度不能超过1000个字符")
+    @Size(max = 1000, message = "项目简介长度不能超过{max}个字符")
     private String projectDescription;
 
     /**
      * 意义及必要性
      */
-    @Size(max = 2000, message = "意义及必要性长度不能超过2000个字符")
+    @Size(max = 2000, message = "意义及必要性长度不能超过{max}个字符")
     private String significanceAndNecessity;
 
     /**

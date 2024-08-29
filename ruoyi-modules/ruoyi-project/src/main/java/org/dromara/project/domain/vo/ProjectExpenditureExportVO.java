@@ -11,6 +11,7 @@ import org.dromara.common.excel.annotation.ExcelEnumFormat;
 import org.dromara.common.excel.convert.ExcelEnumConvert;
 import org.dromara.project.domain.ProjectExpenditure;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ import java.time.LocalDate;
 @AutoMapper(target = ProjectExpenditure.class)
 public class ProjectExpenditureExportVO implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

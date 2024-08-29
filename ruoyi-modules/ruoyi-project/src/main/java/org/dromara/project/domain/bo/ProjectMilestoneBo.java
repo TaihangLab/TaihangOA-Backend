@@ -23,7 +23,7 @@ import java.util.List;
  * @date 2024/02/06
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @AutoMapper(target = ProjectMilestone.class, reverseConvertGenerate = false)
 public class ProjectMilestoneBo extends BaseEntity {
 

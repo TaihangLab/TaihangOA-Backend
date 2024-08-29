@@ -6,6 +6,8 @@ import org.dromara.project.domain.vo.ProjectFundsReceivedVo;
 import java.util.List;
 
 /**
+ * 经费到账Service接口
+ *
  * @Author 范佳兴
  * @date 2024/2/29 11:06
  */

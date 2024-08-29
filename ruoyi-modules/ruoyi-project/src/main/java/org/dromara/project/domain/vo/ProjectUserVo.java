@@ -7,6 +7,8 @@ import org.dromara.common.core.enums.JobTitleEnum;
 import org.dromara.common.core.enums.ProjectUserRoleEnum;
 import org.dromara.project.domain.ProjectUser;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,8 +19,9 @@ import java.util.List;
  */
 @Data
 @AutoMapper(target = ProjectUser.class)
-public class ProjectUserVo {
+public class ProjectUserVo implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

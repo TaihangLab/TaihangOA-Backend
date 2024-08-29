@@ -1,10 +1,14 @@
 package org.dromara.project.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.dromara.common.core.enums.ProjectMilestoneTypeEnum;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 大事记分类表
@@ -13,7 +17,10 @@ import org.dromara.common.core.enums.ProjectMilestoneTypeEnum;
  */
 @TableName("project_milestone_type")
 @Data
-public class ProjectMilestoneType {
+public class ProjectMilestoneType implements Serializable {
+    @Serial
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键

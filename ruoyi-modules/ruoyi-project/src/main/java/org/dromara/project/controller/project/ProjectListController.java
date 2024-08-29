@@ -49,7 +49,7 @@ public class ProjectListController extends BaseController {
      *
      * @return 所有项目列表
      */
-    //    @SaCheckPermission("project:list:getAllList")
+    @SaCheckPermission("project:list:getAllList")
     @PostMapping("/getAllList")
     public TableDataInfo<ProjectBaseInfoVO> getAllProjectList(
         @RequestBody @Validated(QueryGroup.class) ProjectBaseInfoBO projectBaseInfoBO, PageQuery pageQuery) {

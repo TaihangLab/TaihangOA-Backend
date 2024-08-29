@@ -3,10 +3,12 @@ package org.dromara.project.domain;
 import com.baomidou.mybatisplus.annotation.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.dromara.common.core.enums.IntellectualPropertyStatusEnum;
 import org.dromara.common.core.enums.IntellectualPropertyTypeEnum;
 import org.dromara.common.tenant.core.TenantEntity;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -17,9 +19,11 @@ import java.time.LocalDate;
  * @TableName intellectual_property
  * @date 2024/02/06
  */
+@EqualsAndHashCode(callSuper = false)
 @TableName(value = "intellectual_property")
 @Data
 public class IntellectualProperty extends TenantEntity implements Serializable {
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**

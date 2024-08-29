@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.dromara.common.tenant.core.TenantEntity;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,10 +23,11 @@ import java.util.List;
  * @author bailingnan
  * @date 2024/08/01
  */
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @TableName(value = "project_funds_received")
 @Data
 public class ProjectFundsReceived extends TenantEntity implements Serializable {
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**

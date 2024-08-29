@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
 @TableName(value = "project_balance")
 @Data
 public class ProjectBalance implements Serializable {
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**

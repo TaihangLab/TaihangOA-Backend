@@ -10,17 +10,21 @@ import lombok.EqualsAndHashCode;
 import org.dromara.common.mybatis.core.domain.BaseEntity;
 import org.dromara.project.domain.ProjectFundsReceived;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * @Author 范佳兴
+ * 经费到账BO
+ *
+ * @author 范佳兴
  * @date 2024/3/1 15:03
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @AutoMapper(target = ProjectFundsReceived.class, reverseConvertGenerate = false)
 public class ProjectFundsReceivedBo extends BaseEntity {
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**

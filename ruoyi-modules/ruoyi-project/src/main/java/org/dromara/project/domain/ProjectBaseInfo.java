@@ -9,6 +9,8 @@ import org.dromara.common.core.enums.ProjectLevelEnum;
 import org.dromara.common.core.enums.ProjectStatusEnum;
 import org.dromara.common.tenant.core.TenantEntity;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -21,7 +23,9 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = false)
 @TableName(value = "project_base_info")
 @Data
-public class ProjectBaseInfo extends TenantEntity {
+public class ProjectBaseInfo extends TenantEntity implements Serializable {
+    @Serial
+    @TableField(exist = false)
     private static final long serialVersionUID = 8954237796352061001L;
     /**
      * 项目id

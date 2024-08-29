@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
+ * 项目余额BO
  * @author bailingnan
  * @date 2024/7/24
  */

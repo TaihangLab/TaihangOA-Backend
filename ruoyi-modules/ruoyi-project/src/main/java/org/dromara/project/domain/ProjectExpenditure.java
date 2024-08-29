@@ -2,9 +2,11 @@ package org.dromara.project.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.dromara.common.core.enums.*;
 import org.dromara.common.tenant.core.TenantEntity;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,9 +16,11 @@ import java.time.LocalDate;
  *
  * @TableName project_expenditure
  */
+@EqualsAndHashCode(callSuper = false)
 @TableName(value = "project_expenditure")
 @Data
 public class ProjectExpenditure extends TenantEntity implements Serializable {
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**

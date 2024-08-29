@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.dromara.common.core.annotation.PaidFieldDescription;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -20,6 +21,7 @@ import java.math.BigDecimal;
 @TableName(value = "project_balance_paid")
 @Data
 public class ProjectBalancePaid implements Serializable {
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**

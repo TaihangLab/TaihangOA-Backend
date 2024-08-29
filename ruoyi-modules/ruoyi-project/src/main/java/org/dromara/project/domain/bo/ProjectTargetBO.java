@@ -1,8 +1,10 @@
 package org.dromara.project.domain.bo;
 
 import io.github.linpeilie.annotations.AutoMapper;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.dromara.common.core.validate.QueryGroup;
 import org.dromara.project.domain.ProjectTarget;
 
 /**
@@ -17,6 +19,7 @@ public class ProjectTargetBO {
     /**
      * 项目ID
      */
+    @NotNull(message = "项目ID不能为空", groups = {QueryGroup.class})
     private Long projectId;
     /**
      * 指标名称

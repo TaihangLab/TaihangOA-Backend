@@ -17,6 +17,7 @@ import org.dromara.common.core.validate.EditGroup;
 import org.dromara.common.mybatis.core.domain.BaseEntity;
 import org.dromara.project.domain.ProjectBaseInfo;
 
+import java.io.Serial;
 import java.time.LocalDate;
 
 /**
@@ -26,10 +27,11 @@ import java.time.LocalDate;
  * @date 2023/12/12
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @AutoMapper(target = ProjectBaseInfo.class, reverseConvertGenerate = false)
 public class ProjectBaseInfoBO extends BaseEntity {
 
+    @Serial
     private static final long serialVersionUID = -3554569707071107490L;
     /**
      * 项目id
@@ -40,14 +42,14 @@ public class ProjectBaseInfoBO extends BaseEntity {
     /**
      * 项目牵头单位
      */
-    @Size(max = 100, message = "项目牵头单位长度不能超过200个字符")
+    @Size(max = 100, message = "项目牵头单位长度不能超过{max}个字符")
     private String leadingUnit;
 
     /**
      * 承担课题名称
      */
     @NotBlank(message = "承担课题名称不能为空", groups = {AddGroup.class, EditGroup.class})
-    @Size(max = 200, message = "承担课题名称长度不能超过200个字符")
+    @Size(max = 200, message = "承担课题名称长度不能超过{max}个字符")
     private String assignedSubjectName;
 
     /**
@@ -106,13 +108,13 @@ public class ProjectBaseInfoBO extends BaseEntity {
     /**
      * 项目简介
      */
-    @Size(max = 1000, message = "项目简介长度不能超过1000个字符")
+    @Size(max = 1000, message = "项目简介长度不能超过{max}个字符")
     private String projectDescription;
 
     /**
      * 意义及必要性
      */
-    @Size(max = 2000, message = "意义及必要性长度不能超过2000个字符")
+    @Size(max = 2000, message = "意义及必要性长度不能超过{max}个字符")
     private String significanceAndNecessity;
 
     /**
@@ -123,7 +125,7 @@ public class ProjectBaseInfoBO extends BaseEntity {
     /**
      * 完成进度
      */
-    @Size(max = 2000, message = "完成进度长度不能超过2000个字符")
+    @Size(max = 2000, message = "完成进度长度不能超过{max}个字符")
     private String completionProgress;
 
     /**
