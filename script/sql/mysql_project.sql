@@ -1478,6 +1478,30 @@ create table project_funds_received
 ) comment '专项经费到账';
 create index project_funds_received_tenant_id_index
     on project_funds_received (tenant_id);
+-- ----------------------------
+-- 14、项目指标进度表
+-- ----------------------------
+DROP TABLE IF EXISTS `project_target_progress`;
+create table project_target_progress
+(
+    progress_id          bigint auto_increment comment '进度id'
+        primary key,
+    target_id            bigint                       not null comment '指标id',
+    completion_status    varchar(300)                 null comment '完成情况',
+    detailed_description varchar(3000)                null comment '详细描述',
+    completion_time      date                         null comment '完成时间',
+    create_time          datetime                     null comment '创建时间',
+    update_time          datetime                     null comment '更新时间',
+    create_by            bigint                       null comment '创建人',
+    update_by            bigint                       null comment '更新人',
+    deleted              tinyint     default 0        null comment '是否删除，2删除，0未删除',
+    create_dept          bigint                       null comment '创建部门',
+    tenant_id            varchar(20) default '000000' null comment '租户编号'
+)
+    comment '项目指标进度表';
+
+create index project_target_progress_target_id_tenant_id_index
+    on project_target_progress (target_id, tenant_id);
 
 -- ----------------------------
 -- 插入-项目管理菜单数据
