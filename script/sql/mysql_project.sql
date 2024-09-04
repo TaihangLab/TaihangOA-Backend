@@ -1496,8 +1496,8 @@ create table project_target_progress
     update_by            bigint                       null comment '更新人',
     deleted              tinyint     default 0        null comment '是否删除，2删除，0未删除',
     create_dept          bigint                       null comment '创建部门',
-    tenant_id               varchar(20) default '000000' null comment '租户编号',
-    project_progress_status tinyint                      null comment '项目推进情况，0正在需求申报，1已完成需求申报，2正在项目申报，3已完成项目申报，4已签订任务书并推进中，5已完成中期评审，6已完成项目验收'
+    tenant_id varchar(20) default '000000' null comment '租户编号'
+
 )
     comment '项目指标进度表';
 
