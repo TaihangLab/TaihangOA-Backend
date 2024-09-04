@@ -96,7 +96,7 @@ public class ProjectBaseInfoServiceImpl implements ProjectBaseInfoService {
         int cnt = projectBaseInfoMapper.insert(projectBaseInfo);
         if (cnt != 1) {
             log.error("新增失败的projectBaseInfo为:{}", projectBaseInfo);
-            throw new RuntimeException("新增项目失败");
+            throw new IllegalStateException("新增项目失败");
         }
         Long projectId = projectBaseInfo.getProjectId();
         if (projectId == null) {

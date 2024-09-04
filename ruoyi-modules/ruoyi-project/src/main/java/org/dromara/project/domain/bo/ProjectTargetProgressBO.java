@@ -1,13 +1,16 @@
 package org.dromara.project.domain.bo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.github.linpeilie.annotations.AutoMapper;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.dromara.common.core.constant.DateConstants;
 import org.dromara.common.core.validate.AddGroup;
 import org.dromara.common.core.validate.EditGroup;
+import org.dromara.common.core.validate.QueryGroup;
 import org.dromara.common.mybatis.core.domain.BaseEntity;
 import org.dromara.project.domain.ProjectTargetProgress;
 
@@ -32,6 +35,7 @@ public class ProjectTargetProgressBO extends BaseEntity {
     /**
      * 指标id
      */
+    @NotNull(message = "指标id不能为空", groups = {QueryGroup.class})
     private Long targetId;
 
     /**
@@ -50,5 +54,16 @@ public class ProjectTargetProgressBO extends BaseEntity {
     /**
      * 完成时间
      */
+    @JsonFormat(pattern = DateConstants.YYYY_MM_DD)
     private LocalDate completionTime;
+    /**
+     * 完成时间起始时间
+     */
+    @JsonFormat(pattern = DateConstants.YYYY_MM_DD)
+    private LocalDate completionTimeSta;
+    /**
+     * 完成时间截止时间
+     **/
+    @JsonFormat(pattern = DateConstants.YYYY_MM_DD)
+    private LocalDate completionTimeEnd;
 }

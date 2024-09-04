@@ -1,6 +1,7 @@
 package org.dromara.project.service.Impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.project.domain.ProjectTarget;
+import org.dromara.project.domain.ProjectTargetProgress;
 import org.dromara.project.domain.bo.ProjectTargetBO;
+import org.dromara.project.domain.bo.ProjectTargetProgressBO;
+import org.dromara.project.domain.vo.ProjectTargetProgressVO;
 import org.dromara.project.domain.vo.ProjectTargetVO;
 import org.dromara.project.mapper.ProjectTargetMapper;
 import org.dromara.project.mapper.ProjectTargetProgressMapper;
@@ -33,6 +37,16 @@ public class ProjectTargetServiceImpl implements ProjectTargetService {
     private final ProjectTargetMapper projectTargetMapper;
 
     private final ProjectTargetProgressMapper projectTargetProgressMapper;
+
+    @Override
+    public void insertProjectTarget(ProjectTargetBO projectTargetBO) {
+        if (projectTargetBO == null) {
+            throw new IllegalArgumentException("projectTargetBO cannot be null");
+        }
+        ProjectTarget projectTarget = new ProjectTarget();
+        BeanUtil.copyProperties(projectTargetBO, projectTarget);
+        projectTargetMapper.insert(projectTarget);
+    }
 
     /**
      * 新增多个项目指标
@@ -102,8 +116,8 @@ public class ProjectTargetServiceImpl implements ProjectTargetService {
      * @return 结果
      */
     @Override
-    public int deleteTargetByProjectId(Long projectId) {
-        return projectTargetMapper.delete(
+    public void deleteTargetByProjectId(Long projectId) {
+        projectTargetMapper.delete(
             new LambdaQueryWrapper<ProjectTarget>().eq(ProjectTarget::getProjectId, projectId));
     }
 
@@ -128,12 +142,16 @@ public class ProjectTargetServiceImpl implements ProjectTargetService {
      * @return 结果
      */
     @Override
-    public int deleteProjectTarget(Long targetId) {
-        return projectTargetMapper.delete(
-            new LambdaQueryWrapper<ProjectTarget>().eq(ProjectTarget::getTargetId, targetId));
+    public void deleteProjectTarget(Long targetId) {
+        if (projectTargetMapper.delete(
+            new LambdaQueryWrapper<ProjectTarget>().eq(ProjectTarget::getTargetId, targetId)) != 1) {
+            throw new IllegalStateException("delete project target failed");
+        }
     }
 
     /**
+     * 批量更新项目指标
+     *
      * @param projectTargetBoList
      * @param projectId
      */
@@ -142,6 +160,77 @@ public class ProjectTargetServiceImpl implements ProjectTargetService {
     public void updateProjectTargetList(List<ProjectTargetBO> projectTargetBoList, Long projectId) {
         deleteTargetByProjectId(projectId);
         insertProjectTargetList(projectTargetBoList, projectId);
+    }
+
+    @Override
+    public void updateProjectTarget(ProjectTargetBO projectTargetBO) {
+        if (projectTargetBO == null) {
+            throw new IllegalArgumentException("projectTargetBO cannot be null");
+        }
+        ProjectTarget projectTarget = new ProjectTarget();
+        BeanUtil.copyProperties(projectTargetBO, projectTarget);
+        if (projectTargetMapper.updateById(projectTarget) != 1) {
+            throw new IllegalStateException("update project target failed");
+        }
+    }
+
+    @Override
+    public TableDataInfo<ProjectTargetProgressVO> selectTargetProgressList(
+        ProjectTargetProgressBO projectTargetProgressBO, PageQuery pageQuery) {
+        if (projectTargetProgressBO == null) {
+            throw new IllegalArgumentException("projectTargetProgressBO cannot be null");
+        }
+        Long targetId = projectTargetProgressBO.getTargetId();
+        LambdaQueryWrapper<ProjectTargetProgress> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(targetId != null, ProjectTargetProgress::getTargetId, targetId);
+        queryWrapper.like(StrUtil.isNotBlank(projectTargetProgressBO.getCompletionStatus()),
+            ProjectTargetProgress::getCompletionStatus, projectTargetProgressBO.getCompletionStatus());
+        queryWrapper.like(StrUtil.isNotBlank(projectTargetProgressBO.getDetailedDescription()),
+            ProjectTargetProgress::getDetailedDescription, projectTargetProgressBO.getDetailedDescription());
+        queryWrapper.ge(projectTargetProgressBO.getCompletionTimeSta() != null,
+            ProjectTargetProgress::getCompletionTime, projectTargetProgressBO.getCompletionTimeSta());
+        queryWrapper.le(projectTargetProgressBO.getCompletionTimeEnd() != null,
+            ProjectTargetProgress::getCompletionTime, projectTargetProgressBO.getCompletionTimeEnd());
+        queryWrapper.orderByDesc(ProjectTargetProgress::getCompletionTime);
+        Page<ProjectTargetProgressVO> result =
+            projectTargetProgressMapper.selectVoPage(pageQuery.build(), queryWrapper);
+        return TableDataInfo.build(result);
+    }
+
+    @Override
+    public void insertProjectTargetProgress(ProjectTargetProgressBO projectTargetProgressBO) {
+        if (projectTargetProgressBO == null) {
+            throw new IllegalArgumentException("projectTargetProgressBO cannot be null");
+        }
+        ProjectTargetProgress projectTargetProgress = new ProjectTargetProgress();
+        BeanUtil.copyProperties(projectTargetProgressBO, projectTargetProgress);
+        if (projectTargetProgressMapper.insert(projectTargetProgress) != 1) {
+            throw new IllegalStateException("insert project target progress failed");
+        }
+    }
+
+    @Override
+    public void deleteProjectProgressByProgressId(Long progressId) {
+        if (projectTargetProgressMapper.delete(
+            new LambdaQueryWrapper<ProjectTargetProgress>().eq(ProjectTargetProgress::getProgressId,
+                progressId)) != 1) {
+            throw new IllegalStateException("delete project progress failed");
+        }
+    }
+
+    @Override
+    public void updateProjectTargetProgressById(ProjectTargetProgressBO projectTargetProgressBO) {
+        if (projectTargetProgressBO == null) {
+            throw new IllegalArgumentException("projectTargetProgressBO cannot be null");
+        }
+        if (projectTargetProgressBO.getProgressId() == null) {
+            throw new IllegalArgumentException("progressId cannot be null");
+        }
+        ProjectTargetProgress projectTargetProgress = new ProjectTargetProgress();
+        BeanUtil.copyProperties(projectTargetProgressBO, projectTargetProgress);
+        if (projectTargetProgressMapper.updateById(projectTargetProgress) != 1) {
+            throw new IllegalStateException("update project target progress failed");
+        }
     }
 
 }

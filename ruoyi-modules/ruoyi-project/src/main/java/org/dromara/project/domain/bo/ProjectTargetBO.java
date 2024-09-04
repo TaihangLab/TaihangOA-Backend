@@ -1,9 +1,12 @@
 package org.dromara.project.domain.bo;
 
 import io.github.linpeilie.annotations.AutoMapper;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.dromara.common.core.validate.AddGroup;
+import org.dromara.common.core.validate.EditGroup;
 import org.dromara.common.core.validate.QueryGroup;
 import org.dromara.project.domain.ProjectTarget;
 
@@ -17,6 +20,11 @@ import org.dromara.project.domain.ProjectTarget;
 @AutoMapper(target = ProjectTarget.class, reverseConvertGenerate = false)
 public class ProjectTargetBO {
     /**
+     * 指标ID
+     */
+    @NotNull(message = "指标ID不能为空", groups = {EditGroup.class})
+    private Long targetId;
+    /**
      * 项目ID
      */
     @NotNull(message = "项目ID不能为空", groups = {QueryGroup.class})
@@ -24,7 +32,7 @@ public class ProjectTargetBO {
     /**
      * 指标名称
      */
-    //    @NotBlank(message = "指标名称不能为空", groups = {AddGroup.class, EditGroup.class})
+    @NotBlank(message = "指标名称不能为空", groups = {AddGroup.class, EditGroup.class})
     @Size(min = 0, max = 50, message = "指标描述不能超过{max}个字符")
     private String targetName;
 
