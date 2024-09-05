@@ -167,6 +167,9 @@ public class ProjectTargetServiceImpl implements ProjectTargetService {
         if (projectTargetBO == null) {
             throw new IllegalArgumentException("projectTargetBO cannot be null");
         }
+        if (projectTargetBO.getTargetId() == null) {
+            throw new IllegalArgumentException("targetId cannot be null");
+        }
         ProjectTarget projectTarget = new ProjectTarget();
         BeanUtil.copyProperties(projectTargetBO, projectTarget);
         if (projectTargetMapper.updateById(projectTarget) != 1) {

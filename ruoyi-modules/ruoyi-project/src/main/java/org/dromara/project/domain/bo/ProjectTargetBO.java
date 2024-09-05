@@ -22,7 +22,6 @@ public class ProjectTargetBO {
     /**
      * 指标ID
      */
-    @NotNull(message = "指标ID不能为空", groups = {EditGroup.class})
     private Long targetId;
     /**
      * 项目ID

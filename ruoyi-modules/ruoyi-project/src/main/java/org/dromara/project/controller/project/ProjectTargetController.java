@@ -79,7 +79,7 @@ public class ProjectTargetController extends BaseController {
      */
     @SaCheckPermission("project:target:update")
     @PostMapping("/update")
-    public R<Void> updateProjectTarget(@RequestBody @Validated(AddGroup.class) ProjectTargetBO projectTargetBO) {
+    public R<Void> updateProjectTarget(@RequestBody @Validated(EditGroup.class) ProjectTargetBO projectTargetBO) {
         projectTargetService.updateProjectTarget(projectTargetBO);
         return R.ok();
     }
