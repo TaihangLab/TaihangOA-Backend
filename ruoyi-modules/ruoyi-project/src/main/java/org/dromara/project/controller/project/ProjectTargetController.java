@@ -93,7 +93,7 @@ public class ProjectTargetController extends BaseController {
      * @return {@link TableDataInfo }<{@link ProjectTargetProgressVO }>
      */
     @SaCheckPermission("project:target:detail")
-    @GetMapping("/detail")
+    @PostMapping("/detail")
     public TableDataInfo<ProjectTargetProgressVO> getProjectTargetDetail(
         @RequestBody @Validated(QueryGroup.class) ProjectTargetProgressBO projectTargetProgressBO,
         PageQuery pageQuery) {
