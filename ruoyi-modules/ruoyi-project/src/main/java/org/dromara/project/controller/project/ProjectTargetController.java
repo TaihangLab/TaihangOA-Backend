@@ -121,7 +121,7 @@ public class ProjectTargetController extends BaseController {
      * @param progressId
      */
     @SaCheckPermission("project:target:deleteProgress")
-    @PostMapping("/deleteProgress")
+    @GetMapping("/deleteProgress")
     public R<Void> deleteProjectTargetProgress(@RequestParam @NotNull Long progressId) {
         projectTargetService.deleteProjectProgressByProgressId(progressId);
         return R.ok();
