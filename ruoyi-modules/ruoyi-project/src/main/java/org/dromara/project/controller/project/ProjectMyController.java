@@ -151,7 +151,7 @@ public class ProjectMyController extends BaseController {
      */
     @Log(title = "修改项目大事纪", businessType = BusinessType.UPDATE)
     @SaCheckPermission("project:my:milestoneedit")
-    @PutMapping("/milestoneedit")
+    @PostMapping("/milestoneedit")
     public R<Void> edit(@Validated @RequestBody ProjectMilestoneBo projectMilestoneBo) {
         return toAjax(projectMilestoneService.updateMilestone(projectMilestoneBo));
     }
