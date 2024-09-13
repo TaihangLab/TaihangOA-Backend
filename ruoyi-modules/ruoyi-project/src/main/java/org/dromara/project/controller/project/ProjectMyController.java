@@ -123,7 +123,7 @@ public class ProjectMyController extends BaseController {
      */
     @Log(title = "删除单条项目大事纪", businessType = BusinessType.DELETE)
     @SaCheckPermission("project:my:milestonedelete")
-    @DeleteMapping(value = "/milestonedelete")
+    @GetMapping(value = "/milestonedelete")
     public R<Void> delete(@Validated @RequestParam Long milestoneId) {
         return toAjax(projectMilestoneService.deleteProjectMilestone(milestoneId));
     }
