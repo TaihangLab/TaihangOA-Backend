@@ -191,6 +191,7 @@ public class ProjectFundsController {
      * @return
      */
     @GetMapping(value = "/getFundsReceived")
+    @SaCheckPermission("project:expense:receivedList")
     public R<List<ProjectFundsReceivedVo>> getFundsReceivedByProId(@RequestParam @NotNull Long projectId) {
         List<ProjectFundsReceivedVo> fundsReceivedVoList =
             projectFundsReceivedService.getFundsReceivedByProId(projectId);

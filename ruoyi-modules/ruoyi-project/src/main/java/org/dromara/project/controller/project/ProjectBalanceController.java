@@ -1,5 +1,6 @@
 package org.dromara.project.controller.project;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.dromara.common.core.domain.R;
@@ -33,6 +34,7 @@ public class ProjectBalanceController {
      * @return
      */
     @GetMapping(value = "/fundsAndBalance")
+    @SaCheckPermission("project:expense:fundsAndBalance")
     public R<ProjectFundsAndBalanceVO> getFundsAndBalanceByProjectId(@RequestParam @NonNull Long projectId) {
         ProjectFundsAndBalanceVO fundsAndBalance = projectBalanceService.getFundsAndBalanceByProjectId(projectId);
         return R.ok(fundsAndBalance);
