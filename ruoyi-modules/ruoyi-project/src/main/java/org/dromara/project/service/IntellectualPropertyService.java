@@ -57,6 +57,8 @@ public interface IntellectualPropertyService {
     TableDataInfo<IntellectualPropertyVO> queryIntellectualPropertVOList(IntellectualPropertyBO intellectualPropertyBO,
         PageQuery pageQuery);
 
+    List<IntellectualPropertyVO> queryIntellectualPropertVOList(IntellectualPropertyBO intellectualPropertyBO);
+
     /**
      * 获取知识产权统计数据
      *

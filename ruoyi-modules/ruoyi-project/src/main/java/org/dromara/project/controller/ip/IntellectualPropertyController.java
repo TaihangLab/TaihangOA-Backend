@@ -1,6 +1,7 @@
 package org.dromara.project.controller.ip;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import org.dromara.common.core.domain.R;
 import org.dromara.common.core.validate.AddGroup;
 import org.dromara.common.core.validate.EditGroup;
 import org.dromara.common.core.validate.QueryGroup;
+import org.dromara.common.excel.utils.ExcelUtil;
 import org.dromara.common.log.annotation.Log;
 import org.dromara.common.log.enums.BusinessType;
 import org.dromara.common.mybatis.core.page.PageQuery;
@@ -111,6 +113,22 @@ public class IntellectualPropertyController {
     public TableDataInfo<IntellectualPropertyVO> queryIntellectualPropertVOList(
         @RequestBody @Validated(QueryGroup.class) IntellectualPropertyBO intellectualPropertyBO, PageQuery pageQuery) {
         return intellectualPropertyService.queryIntellectualPropertVOList(intellectualPropertyBO, pageQuery);
+    }
+
+    /**
+     * 知识产权列表导出
+     *
+     * @param intellectualPropertyBO
+     * @param response
+     */
+    @Log(title = "知识产权列表导出", businessType = BusinessType.EXPORT)
+    @SaCheckPermission("project:ip:export")
+    @PostMapping("/export")
+    public void export(@RequestBody @Validated(QueryGroup.class) IntellectualPropertyBO intellectualPropertyBO,
+        HttpServletResponse response) {
+        List<IntellectualPropertyVO> intellectualPropertyVOList =
+            intellectualPropertyService.queryIntellectualPropertVOList(intellectualPropertyBO);
+        ExcelUtil.exportExcel(intellectualPropertyVOList, "知识产权数据", IntellectualPropertyVO.class, response);
     }
 
     /**

@@ -151,6 +151,12 @@ public class IntellectualPropertyServiceImpl implements IntellectualPropertyServ
     }
 
     @Override
+    public List<IntellectualPropertyVO> queryIntellectualPropertVOList(IntellectualPropertyBO intellectualPropertyBO) {
+        LambdaQueryWrapper<IntellectualProperty> lqw = buildIntellectualPropertyQueryWrapper(intellectualPropertyBO);
+        return intellectualPropertyMapper.selectVoList(lqw);
+    }
+
+    @Override
     public Map<String, Integer> getIpTypeStatistics() {
         // 使用所有IP类型和零计数初始化映射。
         Map<String, Integer> ipTypeStatistics = Arrays.stream(IntellectualPropertyTypeEnum.values())
