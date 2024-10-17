@@ -68,6 +68,22 @@ public class ProjectFundsController {
     }
 
     /**
+     * 导出经费管理列表
+     *
+     * @param projectBaseInfoBO
+     * @param response
+     */
+    @Log(title = "经费管理列表导出", businessType = BusinessType.EXPORT)
+    @SaCheckPermission("project:expenselist:export")
+    @PostMapping("/exportListData")
+    public void exportList(@RequestBody @Validated(QueryGroup.class) ProjectBaseInfoBO projectBaseInfoBO,
+        HttpServletResponse response) {
+        List<ProjectFundsManagementVO> projectFundsManagementVOList =
+            projectFundsManagementService.queryList(projectBaseInfoBO);
+        ExcelUtil.exportExcel(projectFundsManagementVOList, "经费管理", ProjectFundsManagementVO.class, response);
+    }
+
+    /**
      * 导入数据
      *
      * @param file 导入文件

@@ -46,6 +46,11 @@ public class ProjectFundsManagementServiceImpl implements ProjectFundsManagement
         return TableDataInfo.build(page);
     }
 
+    @Override
+    public List<ProjectFundsManagementVO> queryList(ProjectBaseInfoBO projectBaseInfoBO) {
+        return projectBaseInfoService.queryAllList(projectBaseInfoBO, ProjectFundsManagementVO.class);
+    }
+
     private void buildRecords(List<ProjectFundsManagementVO> projectFundsManagementVOList) {
         if (projectFundsManagementVOList == null || projectFundsManagementVOList.isEmpty()) {
             return;

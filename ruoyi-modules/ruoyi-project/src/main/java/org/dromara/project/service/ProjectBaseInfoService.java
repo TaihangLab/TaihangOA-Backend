@@ -79,6 +79,8 @@ public interface ProjectBaseInfoService {
      */
     <C> Page<C> queryPageAllList(ProjectBaseInfoBO projectBaseInfoBO, PageQuery pageQuery, Class<C> voClass);
 
+    <C> List<C> queryAllList(ProjectBaseInfoBO projectBaseInfoBO, Class<C> voClass);
+
     /**
      * 获取我的项目列表
      *

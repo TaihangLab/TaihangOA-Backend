@@ -160,6 +160,12 @@ public class ProjectBaseInfoServiceImpl implements ProjectBaseInfoService {
         return projectBaseInfoMapper.selectVoPage(pageQuery.build(), lqw, voClass);
     }
 
+    @Override
+    public <C> List<C> queryAllList(ProjectBaseInfoBO projectBaseInfoBO, Class<C> voClass) {
+        LambdaQueryWrapper<ProjectBaseInfo> lqw = buildAllListQueryWrapper(projectBaseInfoBO);
+        return projectBaseInfoMapper.selectVoList(lqw, voClass);
+    }
+
     /**
      * @param projectBaseInfoBO
      * @param pageQuery

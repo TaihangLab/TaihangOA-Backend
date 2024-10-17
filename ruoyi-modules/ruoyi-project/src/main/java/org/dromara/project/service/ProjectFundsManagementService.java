@@ -5,6 +5,8 @@ import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.project.domain.bo.ProjectBaseInfoBO;
 import org.dromara.project.domain.vo.ProjectFundsManagementVO;
 
+import java.util.List;
+
 /**
  * 项目经费管理Service
  *
@@ -13,4 +15,6 @@ import org.dromara.project.domain.vo.ProjectFundsManagementVO;
  */
 public interface ProjectFundsManagementService {
     TableDataInfo<ProjectFundsManagementVO> queryPageList(ProjectBaseInfoBO projectBaseInfoBO, PageQuery pageQuery);
+
+    List<ProjectFundsManagementVO> queryList(ProjectBaseInfoBO projectBaseInfoBO);
 }
