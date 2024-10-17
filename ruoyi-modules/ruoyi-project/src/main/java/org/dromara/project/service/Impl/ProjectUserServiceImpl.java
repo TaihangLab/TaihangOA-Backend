@@ -335,21 +335,47 @@ public class ProjectUserServiceImpl implements ProjectUserService {
         return new TableDataInfo<>(projectUserVoList, userPage.getTotal());
     }
 
-    private Page<SysUser> getUserListByQuery(ProjectUserBo projectUserBo, PageQuery pageQuery) {
+    @Override
+    public List<ProjectUserVo> queryAllList(ProjectUserBo projectUserBo) {
+        List<SysUser> userList = getUserList(projectUserBo);
+        return userList.stream().map(this::createProjectUserVo).collect(Collectors.toList());
+    }
+
+    private List<SysUser> getUserList(ProjectUserBo projectUserBo) {
+        if (projectUserBo == null) {
+            return new ArrayList<>();
+        }
+
+        LambdaQueryWrapper<SysUser> lambdaQueryWrapper = buildUserQueryWrapper(projectUserBo);
+
+        return sysUserMapper.selectList(lambdaQueryWrapper);
+    }
+
+    private LambdaQueryWrapper<SysUser> buildUserQueryWrapper(ProjectUserBo projectUserBo) {
         LambdaQueryWrapper<SysUser> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 
-        if (projectUserBo != null) {
-            if (projectUserBo.getUserId() != null) {
-                lambdaQueryWrapper.eq(SysUser::getUserId, projectUserBo.getUserId());
-            }
-            if (projectUserBo.getProjectId() != null) {
-                Set<Long> userIds = getUserIdsByProjectId(projectUserBo.getProjectId());
-                if (userIds.isEmpty()) {
-                    return new Page<>();
-                }
+        Optional.ofNullable(projectUserBo.getUserId())
+            .ifPresent(userId -> lambdaQueryWrapper.eq(SysUser::getUserId, userId));
+
+        Optional.ofNullable(projectUserBo.getProjectId()).ifPresent(projectId -> {
+            Set<Long> userIds = getUserIdsByProjectId(projectId);
+            if (userIds.isEmpty()) {
+                // No users found for the project, early return
+                lambdaQueryWrapper.apply("0=1");// Ensures no result is returned
+            } else {
                 lambdaQueryWrapper.in(SysUser::getUserId, userIds);
             }
+        });
+
+        return lambdaQueryWrapper;
+    }
+
+    private Page<SysUser> getUserListByQuery(ProjectUserBo projectUserBo, PageQuery pageQuery) {
+        if (projectUserBo == null) {
+            return new Page<>();
         }
+
+        LambdaQueryWrapper<SysUser> lambdaQueryWrapper = buildUserQueryWrapper(projectUserBo);
 
         return sysUserMapper.selectPage(pageQuery.build(), lambdaQueryWrapper);
     }

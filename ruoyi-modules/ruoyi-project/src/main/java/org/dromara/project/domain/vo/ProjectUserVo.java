@@ -1,5 +1,6 @@
 package org.dromara.project.domain.vo;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import org.dromara.common.core.enums.DiplomaTypeEnum;
@@ -32,16 +33,19 @@ public class ProjectUserVo implements Serializable {
     /**
      * 用户姓名
      */
+    @ExcelProperty(value = "姓名")
     private String nickName;
 
     /**
      * 用户职称
      */
+    @ExcelProperty(value = "职称")
     private JobTitleEnum jobTitle;
 
     /**
      * 用户学历
      */
+    @ExcelProperty(value = "学历")
     private DiplomaTypeEnum diploma;
 
     /**
@@ -57,10 +61,12 @@ public class ProjectUserVo implements Serializable {
     /**
      * 部门名称
      */
+    @ExcelProperty(value = "所属部门")
     private String deptName;
     /**
      * 公司名称
      */
+    @ExcelProperty(value = "所属公司")
     private String companyName;
     /**
      * 部门层级
@@ -75,41 +81,49 @@ public class ProjectUserVo implements Serializable {
     /**
      * 对应的项目总数
      */
+    @ExcelProperty(value = "参与项目总数")
     private int userProjectNum;
 
     /**
      * 该成员参与的国家级项目总数
      */
+    @ExcelProperty(value = "参与国家级项目总数")
     private int userNationNum;
 
     /**
      * 该成员参与的省部级项目总数
      */
+    @ExcelProperty(value = "参与省部级项目总数")
     private int userProvincialNum;
 
     /**
      * 该成员参与的自研项目总数
      */
+    @ExcelProperty(value = "参与自研项目总数")
     private int userEnterpriseNum;
 
     /**
      * 当前对应的项目总数
      */
+    @ExcelProperty(value = "当前参与项目数")
     private int userProjectNumNow;
 
     /**
      * 当前该成员参与的国家级项目总数
      */
+    @ExcelProperty(value = "当前参与国家级项目数")
     private int userNationNumNow;
 
     /**
      * 当前该成员参与的省部级项目总数
      */
+    @ExcelProperty(value = "当前参与省部级项目数")
     private int userProvincialNumNow;
 
     /**
      * 当前该成员参与的自研项目总数
      */
+    @ExcelProperty(value = "当前参与自研项目数")
     private int userEnterpriseNumNow;
 
 }

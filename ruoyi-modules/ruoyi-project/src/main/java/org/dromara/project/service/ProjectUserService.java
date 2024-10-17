@@ -86,6 +86,8 @@ public interface ProjectUserService {
      */
     TableDataInfo<ProjectUserVo> queryPageAllList(ProjectUserBo projectUserBo, PageQuery pageQuery);
 
+    List<ProjectUserVo> queryAllList(ProjectUserBo projectUserBo);
+
     /**
      * 根据用户id获取项目成员详细信息
      *
