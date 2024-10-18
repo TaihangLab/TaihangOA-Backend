@@ -51,11 +51,10 @@ public interface ProjectExpenditureService {
         PageQuery pageQuery);
 
     /**
-     * 查询项目支出明细
+     * 查询项目支出明细VO
      *
      * @param projectExpenditureBO
-     *
      * @return
      */
-    List<ProjectExpenditure> getProjectExpenditureByProId(ProjectExpenditureBO projectExpenditureBO);
+    List<ProjectExpenditureVO> queryProjectExpenditureVOList(ProjectExpenditureBO projectExpenditureBO);
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.dromara.common.core.exception.ServiceException;
 import org.dromara.common.mybatis.core.page.PageQuery;
@@ -14,6 +15,7 @@ import org.dromara.project.domain.ProjectBalancePaid;
 import org.dromara.project.domain.ProjectBalanceUnpaid;
 import org.dromara.project.domain.ProjectExpenditure;
 import org.dromara.project.domain.bo.ProjectExpenditureBO;
+import org.dromara.project.domain.vo.ProjectExpenditureExportVO;
 import org.dromara.project.domain.vo.ProjectExpenditureVO;
 import org.dromara.project.mapper.ProjectExpenditureMapper;
 import org.dromara.project.service.ProjectBalanceService;
@@ -232,8 +234,9 @@ public class ProjectExpenditureServiceImpl implements ProjectExpenditureService 
      * @return
      */
     @Override
-    public List<ProjectExpenditure> getProjectExpenditureByProId(ProjectExpenditureBO projectExpenditureBO) {
-        return projectExpenditureMapper.selectList(buildQueryWrapper(projectExpenditureBO));
+    public List<ProjectExpenditureVO> queryProjectExpenditureVOList(ProjectExpenditureBO projectExpenditureBO) {
+        LambdaQueryWrapper<ProjectExpenditure> lqw = buildQueryWrapper(projectExpenditureBO);
+        return projectExpenditureMapper.selectVoList(lqw);
     }
 
     private LambdaQueryWrapper<ProjectExpenditure> buildQueryWrapper(ProjectExpenditureBO projectExpenditureBO) {

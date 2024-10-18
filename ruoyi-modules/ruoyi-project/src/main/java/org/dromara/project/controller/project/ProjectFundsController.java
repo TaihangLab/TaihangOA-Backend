@@ -57,7 +57,6 @@ public class ProjectFundsController {
      *
      * @param projectBaseInfoBO
      * @param pageQuery
-     *
      * @return {@link TableDataInfo}<{@link ProjectFundsManagementVO}>
      */
     @SaCheckPermission("project:expense:getAllList")
@@ -77,7 +76,7 @@ public class ProjectFundsController {
     @SaCheckPermission("project:expenselist:export")
     @PostMapping("/exportListData")
     public void exportList(@RequestBody @Validated(QueryGroup.class) ProjectBaseInfoBO projectBaseInfoBO,
-        HttpServletResponse response) {
+                           HttpServletResponse response) {
         List<ProjectFundsManagementVO> projectFundsManagementVOList =
             projectFundsManagementService.queryList(projectBaseInfoBO);
         ExcelUtil.exportExcel(projectFundsManagementVOList, "经费管理", ProjectFundsManagementVO.class, response);
@@ -87,9 +86,7 @@ public class ProjectFundsController {
      * 导入数据
      *
      * @param file 导入文件
-     *
      * @return {@link R}<{@link List}<{@link ProjectExpenditureImportVO}>>
-     *
      * @throws Exception
      */
     @Log(title = "经费支出导入", businessType = BusinessType.IMPORT)
@@ -103,7 +100,7 @@ public class ProjectFundsController {
     }
 
     /**
-     * 导出数据
+     * 导出经费支出明细数据
      *
      * @param projectExpenditureBO 支出ID
      * @param response
@@ -112,18 +109,14 @@ public class ProjectFundsController {
     @SaCheckPermission("project:expense:export")
     @PostMapping("/exportData")
     public void export(ProjectExpenditureBO projectExpenditureBO, HttpServletResponse response) {
-        List<ProjectExpenditure> projectExpenditures =
-            projectExpenditureService.getProjectExpenditureByProId(projectExpenditureBO);
-        List<ProjectExpenditureExportVO> projectExpenditureExportVOS =
-            BeanUtil.copyToList(projectExpenditures, ProjectExpenditureExportVO.class);
-        ExcelUtil.exportExcel(projectExpenditureExportVOS, "支出明细数据", ProjectExpenditureExportVO.class, response);
+        List<ProjectExpenditureVO> projectExpenditureVOList = projectExpenditureService.queryProjectExpenditureVOList(projectExpenditureBO);
+        ExcelUtil.exportExcel(projectExpenditureVOList, "支出明细数据", ProjectExpenditureVO.class, response);
     }
 
     /**
      * 新增支出记录
      *
      * @param projectExpenditureBOList
-     *
      * @return {@link R}<{@link Void}>
      */
     @Log(title = "新增支出记录", businessType = BusinessType.INSERT)
@@ -139,9 +132,7 @@ public class ProjectFundsController {
      * 支出记录回滚
      *
      * @param expenditureId
-     *
      * @return {@link R}<{@link Void}>
-     *
      * @throws IllegalAccessException
      */
     @Log(title = "支出记录回滚", businessType = BusinessType.DELETE)
@@ -156,7 +147,6 @@ public class ProjectFundsController {
      * 新增专项经费到账记录
      *
      * @param projectFundsReceived 经费到账信息
-     *
      * @return
      */
     @Log(title = "新增专项经费到账记录", businessType = BusinessType.INSERT)
@@ -172,7 +162,6 @@ public class ProjectFundsController {
      * 修改专项经费到账记录
      *
      * @param projectFundsReceived 修改后的经费到账信息
-     *
      * @return
      */
     @Log(title = "修改专项经费到账记录", businessType = BusinessType.UPDATE)
@@ -188,7 +177,6 @@ public class ProjectFundsController {
      * 删除专项经费到账记录
      *
      * @param receivedId 经费到账ID
-     *
      * @return
      */
     @Log(title = "删除专项经费到账记录", businessType = BusinessType.DELETE)
@@ -203,7 +191,6 @@ public class ProjectFundsController {
      * 查询某个项目的专项经费到账记录
      *
      * @param projectId 项目ID
-     *
      * @return
      */
     @GetMapping(value = "/getFundsReceived")
@@ -218,7 +205,6 @@ public class ProjectFundsController {
      * 查询支出明细
      *
      * @param projectExpenditureBO
-     *
      * @return {@link R }<{@link List }<{@link ProjectExpenditureVO }>>
      */
     @SaCheckPermission("project:expense:view")
