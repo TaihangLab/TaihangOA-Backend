@@ -1,7 +1,6 @@
 package org.dromara.project.controller.project;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.hutool.core.bean.BeanUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +15,13 @@ import org.dromara.common.log.annotation.Log;
 import org.dromara.common.log.enums.BusinessType;
 import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
-import org.dromara.project.domain.ProjectExpenditure;
 import org.dromara.project.domain.ProjectFundsReceived;
 import org.dromara.project.domain.bo.ProjectBaseInfoBO;
 import org.dromara.project.domain.bo.ProjectExpenditureBO;
-import org.dromara.project.domain.vo.*;
+import org.dromara.project.domain.vo.ProjectExpenditureImportVO;
+import org.dromara.project.domain.vo.ProjectExpenditureVO;
+import org.dromara.project.domain.vo.ProjectFundsManagementVO;
+import org.dromara.project.domain.vo.ProjectFundsReceivedVo;
 import org.dromara.project.listener.ProjectFundsImportListener;
 import org.dromara.project.service.ProjectExpenditureService;
 import org.dromara.project.service.ProjectFundsManagementService;
@@ -75,7 +76,7 @@ public class ProjectFundsController {
     @Log(title = "经费管理列表导出", businessType = BusinessType.EXPORT)
     @SaCheckPermission("project:expenselist:export")
     @PostMapping("/exportListData")
-    public void exportList(@RequestBody @Validated(QueryGroup.class) ProjectBaseInfoBO projectBaseInfoBO,
+    public void exportList(@Validated(QueryGroup.class) ProjectBaseInfoBO projectBaseInfoBO,
                            HttpServletResponse response) {
         List<ProjectFundsManagementVO> projectFundsManagementVOList =
             projectFundsManagementService.queryList(projectBaseInfoBO);

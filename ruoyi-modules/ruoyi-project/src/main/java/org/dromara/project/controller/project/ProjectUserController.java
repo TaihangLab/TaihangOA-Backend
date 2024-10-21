@@ -60,7 +60,7 @@ public class ProjectUserController {
     @Log(title = "项目成员列表导出", businessType = BusinessType.EXPORT)
     @SaCheckPermission("project:user:export")
     @PostMapping("/exportData")
-    public void export(@RequestBody @Validated(QueryGroup.class) ProjectUserBo projectUserBo,
+    public void export(@Validated(QueryGroup.class) ProjectUserBo projectUserBo,
         HttpServletResponse response) {
         List<ProjectUserVo> list = projectUserService.queryAllList(projectUserBo);
         ExcelUtil.exportExcel(list, "项目成员数据", ProjectUserVo.class, response);

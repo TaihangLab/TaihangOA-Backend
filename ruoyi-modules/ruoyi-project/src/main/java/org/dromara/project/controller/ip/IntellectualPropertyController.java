@@ -124,7 +124,7 @@ public class IntellectualPropertyController {
     @Log(title = "知识产权列表导出", businessType = BusinessType.EXPORT)
     @SaCheckPermission("project:ip:export")
     @PostMapping("/export")
-    public void export(@RequestBody @Validated(QueryGroup.class) IntellectualPropertyBO intellectualPropertyBO,
+    public void export(@Validated(QueryGroup.class) IntellectualPropertyBO intellectualPropertyBO,
         HttpServletResponse response) {
         List<IntellectualPropertyVO> intellectualPropertyVOList =
             intellectualPropertyService.queryIntellectualPropertVOList(intellectualPropertyBO);
