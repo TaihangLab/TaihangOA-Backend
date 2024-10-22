@@ -153,7 +153,11 @@ public class IntellectualPropertyServiceImpl implements IntellectualPropertyServ
     @Override
     public List<IntellectualPropertyVO> queryIntellectualPropertVOList(IntellectualPropertyBO intellectualPropertyBO) {
         LambdaQueryWrapper<IntellectualProperty> lqw = buildIntellectualPropertyQueryWrapper(intellectualPropertyBO);
-        return intellectualPropertyMapper.selectVoList(lqw);
+        List<IntellectualPropertyVO> list = intellectualPropertyMapper.selectVoList(lqw);
+        if (!list.isEmpty()) {
+            setAssignedSubjectName(list);
+        }
+        return list;
     }
 
     @Override

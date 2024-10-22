@@ -1,5 +1,6 @@
 package org.dromara.project.domain.vo;
 
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
  */
 @Data
 @AutoMapper(target = IntellectualProperty.class)
+@ExcelIgnoreUnannotated
 public class IntellectualPropertyVO {
     /**
      * 知识产权id

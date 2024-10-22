@@ -1,11 +1,14 @@
 package org.dromara.project.domain.vo;
 
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import org.dromara.common.core.enums.DiplomaTypeEnum;
 import org.dromara.common.core.enums.JobTitleEnum;
 import org.dromara.common.core.enums.ProjectUserRoleEnum;
+import org.dromara.common.excel.annotation.ExcelEnumFormat;
+import org.dromara.common.excel.convert.ExcelEnumConvert;
 import org.dromara.project.domain.ProjectUser;
 
 import java.io.Serial;
@@ -20,6 +23,7 @@ import java.util.List;
  */
 @Data
 @AutoMapper(target = ProjectUser.class)
+@ExcelIgnoreUnannotated
 public class ProjectUserVo implements Serializable {
 
     @Serial
@@ -39,13 +43,15 @@ public class ProjectUserVo implements Serializable {
     /**
      * 用户职称
      */
-    @ExcelProperty(value = "职称")
+    @ExcelProperty(value = "职称", converter = ExcelEnumConvert.class)
+    @ExcelEnumFormat(enumClass = JobTitleEnum.class, codeField = "value", textField = "description")
     private JobTitleEnum jobTitle;
 
     /**
      * 用户学历
      */
-    @ExcelProperty(value = "学历")
+    @ExcelProperty(value = "学历", converter = ExcelEnumConvert.class)
+    @ExcelEnumFormat(enumClass = DiplomaTypeEnum.class, codeField = "value", textField = "description")
     private DiplomaTypeEnum diploma;
 
     /**

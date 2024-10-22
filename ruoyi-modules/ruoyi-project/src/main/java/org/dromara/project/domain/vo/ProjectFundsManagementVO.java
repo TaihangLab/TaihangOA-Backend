@@ -1,5 +1,6 @@
 package org.dromara.project.domain.vo;
 
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
  */
 @Data
 @AutoMapper(target = ProjectBaseInfo.class)
+@ExcelIgnoreUnannotated
 public class ProjectFundsManagementVO {
     /**
      * 项目id
