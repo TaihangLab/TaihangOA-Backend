@@ -48,7 +48,10 @@ public class ProjectFundsManagementServiceImpl implements ProjectFundsManagement
 
     @Override
     public List<ProjectFundsManagementVO> queryList(ProjectBaseInfoBO projectBaseInfoBO) {
-        return projectBaseInfoService.queryAllList(projectBaseInfoBO, ProjectFundsManagementVO.class);
+        List<ProjectFundsManagementVO> list =
+            projectBaseInfoService.queryAllList(projectBaseInfoBO, ProjectFundsManagementVO.class);
+        buildRecords(list);
+        return list;
     }
 
     private void buildRecords(List<ProjectFundsManagementVO> projectFundsManagementVOList) {
