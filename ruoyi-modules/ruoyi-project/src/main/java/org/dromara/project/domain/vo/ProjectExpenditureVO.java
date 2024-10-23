@@ -1,5 +1,6 @@
 package org.dromara.project.domain.vo;
 
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
@@ -22,6 +23,7 @@ import java.util.Date;
  */
 @Data
 @AutoMapper(target = ProjectExpenditure.class)
+@ExcelIgnoreUnannotated
 public class ProjectExpenditureVO {
     /**
      * 支出id

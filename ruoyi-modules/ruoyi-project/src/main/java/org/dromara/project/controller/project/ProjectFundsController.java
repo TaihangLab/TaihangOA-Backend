@@ -111,7 +111,8 @@ public class ProjectFundsController {
     @Log(title = "经费支出导出", businessType = BusinessType.EXPORT)
     @SaCheckPermission("project:expense:export")
     @PostMapping("/exportData")
-    public void export(ProjectExpenditureBO projectExpenditureBO, HttpServletResponse response) {
+    public void export(@Validated(QueryGroup.class) @RequestBody ProjectExpenditureBO projectExpenditureBO,
+                       HttpServletResponse response) {
         List<ProjectExpenditureVO> projectExpenditureVOList = projectExpenditureService.queryProjectExpenditureVOList(projectExpenditureBO);
         ExcelUtil.exportExcel(projectExpenditureVOList, "支出明细数据", ProjectExpenditureVO.class, response);
     }
