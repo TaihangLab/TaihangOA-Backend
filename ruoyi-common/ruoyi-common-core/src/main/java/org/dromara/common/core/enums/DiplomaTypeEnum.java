@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.IEnum;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 import org.dromara.common.core.utils.EnumCacheUtils;
 
 /**
@@ -16,7 +15,6 @@ import org.dromara.common.core.utils.EnumCacheUtils;
  */
 @Getter
 @AllArgsConstructor
-@ToString
 public enum DiplomaTypeEnum implements IEnum<Integer> {
     /**
      * 博士研究生
