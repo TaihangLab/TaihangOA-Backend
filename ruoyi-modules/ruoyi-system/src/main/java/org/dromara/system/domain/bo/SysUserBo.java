@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.constant.UserConstants;
+import org.dromara.common.core.constant.SystemConstants;
 import org.dromara.common.core.enums.DiplomaTypeEnum;
 import org.dromara.common.core.enums.JobTitleEnum;
 import org.dromara.common.core.xss.Xss;
@@ -125,7 +125,7 @@ public class SysUserBo extends BaseEntity {
     private DiplomaTypeEnum diploma;
 
     public boolean isSuperAdmin() {
-        return UserConstants.SUPER_ADMIN_ID.equals(this.userId);
+        return SystemConstants.SUPER_ADMIN_ID.equals(this.userId);
     }
 
 }

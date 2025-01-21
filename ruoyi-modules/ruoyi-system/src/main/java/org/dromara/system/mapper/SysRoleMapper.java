@@ -21,6 +21,13 @@ import java.util.List;
 @Mapper
 public interface SysRoleMapper extends BaseMapperPlus<SysRole, SysRoleVo> {
 
+    /**
+     * 分页查询角色列表
+     *
+     * @param page         分页对象
+     * @param queryWrapper 查询条件
+     * @return 包含角色信息的分页结果
+     */
     @DataPermission({
         @DataColumn(key = "deptName", value = "d.dept_id"),
         @DataColumn(key = "userName", value = "r.create_by")
@@ -39,6 +46,12 @@ public interface SysRoleMapper extends BaseMapperPlus<SysRole, SysRoleVo> {
     })
     List<SysRoleVo> selectRoleList(@Param(Constants.WRAPPER) Wrapper<SysRole> queryWrapper);
 
+    /**
+     * 根据角色ID查询角色信息
+     *
+     * @param roleId 角色ID
+     * @return 对应的角色信息
+     */
     @DataPermission({
         @DataColumn(key = "deptName", value = "d.dept_id"),
         @DataColumn(key = "userName", value = "r.create_by")

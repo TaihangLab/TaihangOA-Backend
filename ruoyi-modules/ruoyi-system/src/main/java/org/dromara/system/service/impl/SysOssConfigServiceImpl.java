@@ -13,6 +13,7 @@ import org.dromara.common.core.exception.ServiceException;
 import org.dromara.common.core.service.OssService;
 import org.dromara.common.core.service.UserService;
 import org.dromara.common.core.utils.MapstructUtils;
+import org.dromara.common.core.utils.ObjectUtils;
 import org.dromara.common.core.utils.StringUtils;
 import org.dromara.common.excel.utils.AddressUtil;
 import org.dromara.common.json.utils.JsonUtils;
@@ -170,7 +171,7 @@ public class SysOssConfigServiceImpl implements ISysOssConfigService {
      * 判断configKey是否唯一
      */
     private boolean checkConfigKeyUnique(SysOssConfig sysOssConfig) {
-        long ossConfigId = ObjectUtil.isNull(sysOssConfig.getOssConfigId()) ? -1L : sysOssConfig.getOssConfigId();
+        long ossConfigId = ObjectUtils.notNull(sysOssConfig.getOssConfigId(), -1L);
         SysOssConfig info = baseMapper.selectOne(new LambdaQueryWrapper<SysOssConfig>()
             .select(SysOssConfig::getOssConfigId, SysOssConfig::getConfigKey)
             .eq(SysOssConfig::getConfigKey, sysOssConfig.getConfigKey()));

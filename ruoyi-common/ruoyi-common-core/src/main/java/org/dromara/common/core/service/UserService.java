@@ -84,4 +84,13 @@ public interface UserService {
     List<UserDTO> selectUsersByDeptIds(List<Long> deptIds);
 
     void updateUserAvatarIP(String oldEndPoint, String newEndPoint);
+
+    /**
+     * 通过岗位ID查询用户
+     *
+     * @param postIds 岗位ids
+     * @return 用户
+     */
+    List<UserDTO> selectUsersByPostIds(List<Long> postIds);
+
 }
