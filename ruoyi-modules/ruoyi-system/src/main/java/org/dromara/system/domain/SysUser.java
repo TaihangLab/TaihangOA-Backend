@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.dromara.common.core.constant.UserConstants;
+import org.dromara.common.core.constant.SystemConstants;
 import org.dromara.common.core.enums.DiplomaTypeEnum;
 import org.dromara.common.core.enums.JobTitleEnum;
-import org.dromara.common.tenant.core.TenantEntity;
-import org.dromara.common.core.constant.SystemConstants;
 import org.dromara.common.tenant.core.TenantEntity;
 
 import java.util.Date;

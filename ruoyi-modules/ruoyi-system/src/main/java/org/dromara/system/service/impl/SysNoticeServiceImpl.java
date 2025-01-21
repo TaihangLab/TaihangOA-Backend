@@ -71,7 +71,7 @@ public class SysNoticeServiceImpl implements ISysNoticeService {
         //            lqw.eq(SysNotice::getCreateBy, ObjectUtils.notNullGetter(sysUser, SysUserVo::getUserId));
         //        }
         //        lqw.orderByAsc(SysNotice::getNoticeId);
-        lqw.like(ObjectUtil.isNotNull(bo.getCreateBy()), SysNotice::getCreateBy, bo.getCreateBy());
+        lqw.like(ObjectUtils.isNotNull(bo.getCreateBy()), SysNotice::getCreateBy, bo.getCreateBy());
         lqw.orderByDesc(SysNotice::getUpdateTime);
         return lqw;
     }
