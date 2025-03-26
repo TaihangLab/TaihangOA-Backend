@@ -75,7 +75,7 @@ create table sys_tenant (
     tenant_id         varchar2(20)  not null,
     contact_user_name varchar2(20)  default '',
     contact_phone     varchar2(20)  default '',
-    company_name      varchar2(50)  default '',
+    company_name      varchar2(30)  default '',
     license_number    varchar2(30)  default '',
     address           varchar2(200) default '',
     intro             varchar2(200) default '',
@@ -352,7 +352,7 @@ comment on column sys_role.tenant_id             is '租户编号';
 comment on column sys_role.role_name             is '角色名称';
 comment on column sys_role.role_key              is '角色权限字符串';
 comment on column sys_role.role_sort             is '显示顺序';
-comment on column sys_role.data_scope            is '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）';
+comment on column sys_role.data_scope            is '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限 5：仅本人数据权限 6：部门及以下或本人数据权限）';
 comment on column sys_role.menu_check_strictly   is '菜单树选择项是否关联显示';
 comment on column sys_role.dept_check_strictly   is '部门树选择项是否关联显示';
 comment on column sys_role.status                is '角色状态（0正常 1停用）';
@@ -1159,6 +1159,7 @@ create table sys_oss (
   file_suffix     varchar2(10)   not null,
   url             varchar2(500)  not null,
   service         varchar2(20)   default 'minio' not null,
+  ext1            varchar2(500)  default '',
   create_dept     number(20)     default null,
   create_by       number(20)     default null,
   create_time     date,
@@ -1176,6 +1177,7 @@ comment on column sys_oss.original_name     is '原名';
 comment on column sys_oss.file_suffix       is '文件后缀名';
 comment on column sys_oss.url               is 'URL地址';
 comment on column sys_oss.service           is '服务商';
+comment on column sys_oss.ext1              is '扩展字段';
 comment on column sys_oss.create_dept       is '创建部门';
 comment on column sys_oss.create_time       is '创建时间';
 comment on column sys_oss.create_by         is '上传者';

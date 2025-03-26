@@ -222,7 +222,7 @@ CREATE TABLE sys_tenant
     tenant_id             nvarchar(20)                    NOT NULL,
     contact_user_name     nvarchar(20)                    NULL,
     contact_phone         nvarchar(20)                    NULL,
-    company_name          nvarchar(50)                    NULL,
+    company_name          nvarchar(30)                    NULL,
     license_number        nvarchar(30)                    NULL,
     address               nvarchar(200)                   NULL,
     intro                 nvarchar(200)                   NULL,
@@ -2318,7 +2318,7 @@ EXEC sys.sp_addextendedproperty
     'COLUMN', N'role_sort'
 GO
 EXEC sys.sp_addextendedproperty
-    'MS_Description', N'数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）' ,
+    'MS_Description', N'数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限 5：仅本人数据权限 6：部门及以下或本人数据权限）' ,
     'SCHEMA', N'dbo',
     'TABLE', N'sys_role',
     'COLUMN', N'data_scope'
@@ -2923,6 +2923,7 @@ CREATE TABLE sys_oss
     original_name nvarchar(255) DEFAULT ''        NOT NULL,
     file_suffix   nvarchar(10)  DEFAULT ''        NOT NULL,
     url           nvarchar(500)                   NOT NULL,
+    ext1          nvarchar(500) DEFAULT ''        NULL,
     create_dept   bigint                          NULL,
     create_time   datetime2(7)                    NULL,
     create_by     bigint                          NULL,
@@ -2971,6 +2972,12 @@ EXEC sp_addextendedproperty
     'SCHEMA', N'dbo',
     'TABLE', N'sys_oss',
     'COLUMN', N'url'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'扩展字段',
+    'SCHEMA', N'dbo',
+    'TABLE', N'sys_oss',
+    'COLUMN', N'ext1'
 GO
 EXEC sys.sp_addextendedproperty
     'MS_Description', N'创建部门' ,

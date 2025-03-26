@@ -149,7 +149,6 @@ CREATE TABLE flow_node (
     permission_flag nvarchar(200) NULL,
     node_ratio decimal(6,3)  NULL,
     coordinate nvarchar(100) NULL,
-    skip_any_node nvarchar(100) DEFAULT('N') NULL,
     any_node_skip nvarchar(100) NULL,
     listener_type nvarchar(100) NULL,
     listener_path nvarchar(400) NULL,
@@ -160,6 +159,7 @@ CREATE TABLE flow_node (
     version nvarchar(20) NOT NULL,
     create_time datetime2(7)  NULL,
     update_time datetime2(7)  NULL,
+    ext nvarchar(500) NULL,
     del_flag nchar(1) DEFAULT('0') NULL,
     tenant_id nvarchar(40) NULL,
     CONSTRAINT PK__flow_nod__3213E83F372470DE PRIMARY KEY CLUSTERED (id)
@@ -223,13 +223,6 @@ EXEC sp_addextendedproperty
 'SCHEMA', N'dbo',
 'TABLE', N'flow_node',
 'COLUMN', N'coordinate'
-GO
-
-EXEC sp_addextendedproperty
-'MS_Description', N'是否可以退回任意节点（Y是 N否）即将删除',
-'SCHEMA', N'dbo',
-'TABLE', N'flow_node',
-'COLUMN', N'skip_any_node'
 GO
 
 EXEC sp_addextendedproperty
@@ -300,6 +293,13 @@ EXEC sp_addextendedproperty
 'SCHEMA', N'dbo',
 'TABLE', N'flow_node',
 'COLUMN', N'update_time'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'扩展属性',
+'SCHEMA', N'dbo',
+'TABLE', N'flow_node',
+'COLUMN', N'ext'
 GO
 
 EXEC sp_addextendedproperty
@@ -917,6 +917,8 @@ ON [PRIMARY]
 GO
 
 CREATE NONCLUSTERED INDEX user_processed_type ON flow_user (processed_by ASC, type ASC)
+GO
+CREATE NONCLUSTERED INDEX user_associated_idx ON flow_user (associated ASC)
 GO
 
 EXEC sp_addextendedproperty
